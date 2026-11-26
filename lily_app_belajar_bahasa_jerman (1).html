@@ -1,0 +1,4451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lily App ✿ Belajar Bahasa Jerman</title>
+
+  <!-- Font rounded bergaya Y2K dari Google Fonts dengan fallback sistem -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- SDK Browser EmailJS v4 (versi dipatok dari jsDelivr) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
+
+  <style>
+    /* === SEKSI: CSS VARIABLES TEMA Y2K PINK === */
+    :root {
+      --bg-grad-1: #fff0f9;
+      --bg-grad-2: #ffb3de;
+      --bg-grad-3: #ff85cc;
+      --bg-grad-4: #f7c6ff;
+      --bg-bubblegum: #ff69b4;
+
+      --pink-50: #fff5fb;
+      --pink-100: #ffe0f2;
+      --pink-200: #ffbde3;
+      --pink-300: #ff8ed0;
+      --pink-400: #ff5cb8;
+      --pink-500: #e83298;
+      --pink-600: #bd1876;
+
+      --lavender: #ebd6ff;
+      --lemon: #fff3bd;
+      --sky: #d6f1ff;
+      --mint: #d7fbe8;
+
+      --ink-main: #3B0A2A;
+      --ink-soft: #6d2653;
+      --ink-muted: #934f7a;
+
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-bg-strong: rgba(255, 255, 255, 0.86);
+      --glass-border: rgba(255, 255, 255, 0.94);
+      --glass-pink-border: rgba(255, 132, 204, 0.62);
+      --dock-bg: rgba(255, 240, 250, 0.56);
+
+      --shadow-glass: 0 18px 42px rgba(232, 50, 152, 0.22), 0 4px 14px rgba(59, 10, 42, 0.08), inset 0 1.5px 0 rgba(255, 255, 255, 0.92);
+      --shadow-btn: 0 7px 18px rgba(232, 50, 152, 0.32), inset 0 2px 4px rgba(255, 255, 255, 0.82);
+      --shadow-y2k: 4px 4px 0px rgba(232, 50, 152, 0.36);
+
+      --danger-bg: #fff1f2;
+      --danger-border: #fda4af;
+      --danger-text: #be123c;
+
+      --success-bg: #ecfdf5;
+      --success-border: #6ee7b7;
+      --success-text: #047857;
+
+      --warn-bg: #fffbeb;
+      --warn-border: #fcd34d;
+      --warn-text: #92400e;
+
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+
+      --font-display: 'Fredoka', 'Quicksand', ui-rounded, 'Segoe UI', sans-serif;
+      --font-body: 'Quicksand', 'Fredoka', ui-rounded, 'Segoe UI', sans-serif;
+      --transition: 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* === SEKSI: RESET & BASE LAYOUT === */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--ink-main);
+      background:
+        radial-gradient(circle at 14% 16%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 189, 227, 0.55) 18%, transparent 44%),
+        radial-gradient(circle at 86% 14%, rgba(255, 105, 180, 0.48) 0%, rgba(235, 214, 255, 0.52) 24%, transparent 48%),
+        radial-gradient(circle at 76% 82%, rgba(255, 243, 189, 0.55) 0%, rgba(255, 142, 208, 0.34) 26%, transparent 50%),
+        radial-gradient(circle at 18% 84%, rgba(214, 241, 255, 0.62) 0%, rgba(247, 198, 255, 0.48) 28%, transparent 52%),
+        linear-gradient(140deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 38%, var(--bg-grad-3) 74%, var(--bg-grad-4) 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Lapisan glitter halus bergaya wallpaper macOS girly glam */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.82) 1.25px, transparent 1.25px),
+        radial-gradient(rgba(232, 50, 152, 0.16) 1.1px, transparent 1.1px),
+        radial-gradient(rgba(255, 243, 189, 0.7) 1px, transparent 1px);
+      background-size: 32px 32px, 22px 22px, 46px 46px;
+      background-position: 0 0, 11px 11px, 7px 19px;
+      opacity: 0.78;
+      z-index: 0;
+    }
+
+    h1, h2, h3, h4, button, .font-display {
+      font-family: var(--font-display);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* === SEKSI: DEKORASI WALLPAPER MACOS GIRLY GLAM (BOKEH, LENS FLARE, KUPU-KUPU & HATI KRISTAL) === */
+    .sparkle-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .bokeh-orb {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 32%, rgba(255, 255, 255, 0.92), rgba(255, 189, 227, 0.45) 48%, rgba(255, 105, 180, 0.08) 76%, transparent 100%);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      filter: blur(1px);
+      opacity: 0.72;
+      animation: floatSoft 7.5s ease-in-out infinite;
+    }
+
+    .bokeh-orb.b1 { width: 150px; height: 150px; top: 6%; left: -30px; animation-delay: 0s; }
+    .bokeh-orb.b2 { width: 110px; height: 110px; top: 22%; right: 8%; animation-delay: 1.5s; }
+    .bokeh-orb.b3 { width: 185px; height: 185px; bottom: -40px; right: 12%; animation-delay: 0.8s; opacity: 0.55; }
+    .bokeh-orb.b4 { width: 84px; height: 84px; bottom: 20%; left: 10%; animation-delay: 2.3s; }
+
+    .lens-flare {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      top: -60px;
+      right: -40px;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 224, 242, 0.52) 22%, rgba(255, 105, 180, 0.16) 48%, transparent 72%);
+      opacity: 0.85;
+      animation: lensPulse 6s ease-in-out infinite;
+    }
+
+    .lens-flare::before,
+    .lens-flare::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+      border-radius: 999px;
+    }
+
+    .lens-flare::before {
+      width: 240px;
+      height: 2.5px;
+      transform: translate(-50%, -50%) rotate(-18deg);
+    }
+
+    .lens-flare::after {
+      width: 170px;
+      height: 2px;
+      transform: translate(-50%, -50%) rotate(72deg);
+    }
+
+    .crystal-ornament {
+      position: absolute;
+      filter: drop-shadow(0 6px 14px rgba(232, 50, 152, 0.28));
+      opacity: 0.88;
+      animation: butterflyDrift 6.4s ease-in-out infinite;
+    }
+
+    .crystal-ornament.co-butterfly-1 { top: 10%; left: 5%; width: 62px; height: 62px; animation-delay: 0.2s; }
+    .crystal-ornament.co-heart-1 { top: 17%; right: 6%; width: 46px; height: 46px; animation-delay: 1.4s; }
+    .crystal-ornament.co-butterfly-2 { bottom: 12%; right: 5%; width: 58px; height: 58px; animation-delay: 2.1s; }
+    .crystal-ornament.co-heart-2 { bottom: 18%; left: 4%; width: 42px; height: 42px; animation-delay: 0.9s; }
+
+    .sparkle {
+      position: absolute;
+      font-size: 1.25rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 92, 184, 0.92), 0 0 20px rgba(255, 255, 255, 0.96);
+      animation: twinkle 3.6s ease-in-out infinite;
+      user-select: none;
+    }
+
+    .sparkle.s1 { top: 8%; left: 14%; animation-delay: 0s; font-size: 1.45rem; }
+    .sparkle.s2 { top: 24%; right: 14%; animation-delay: 0.9s; font-size: 1.15rem; color: #fff5fb; }
+    .sparkle.s3 { top: 55%; left: 4%; animation-delay: 1.7s; font-size: 1.05rem; }
+    .sparkle.s4 { bottom: 14%; right: 12%; animation-delay: 0.5s; font-size: 1.5rem; }
+    .sparkle.s5 { bottom: 28%; left: 16%; animation-delay: 2.1s; font-size: 1rem; }
+    .sparkle.s6 { top: 38%; right: 4%; animation-delay: 1.3s; font-size: 1.25rem; }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.92; }
+      50% { transform: scale(0.7) rotate(18deg); opacity: 0.32; }
+    }
+
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes lensPulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.08); opacity: 0.58; }
+    }
+
+    @keyframes butterflyDrift {
+      0%, 100% { transform: translateY(0px) rotate(-4deg); }
+      50% { transform: translateY(-9px) rotate(5deg); }
+    }
+
+    /* === SEKSI: KOMPONEN KACA GLOSSY (GLASSMORPHISM Y2K) === */
+    .glass-card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 2px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-glass);
+      overflow: hidden;
+    }
+
+    /* Kilau glossy + glitter lembut di bagian atas kartu */
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glass-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-root {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* === SEKSI: HALAMAN OTENTIKASI === */
+    .auth-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 14px 36px;
+    }
+
+    .auth-wrapper {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .brand-hero {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 225, 240, 0.85));
+      border: 2px solid #ffffff;
+      box-shadow: var(--shadow-y2k);
+      margin-bottom: 10px;
+      animation: floatSoft 4s ease-in-out infinite;
+    }
+
+    .brand-flower {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-300), var(--pink-500));
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.75);
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      background: linear-gradient(90deg, var(--pink-600), var(--pink-400), #9b4dca);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .brand-subtitle {
+      margin: 4px 0 0;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    .auth-window-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: linear-gradient(90deg, #ff9bd2 0%, #ffc4e8 50%, #e5caff 100%);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.85);
+    }
+
+    .window-title {
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(74, 21, 75, 0.45);
+      background: #ffffff;
+    }
+
+    .window-dot.d1 { background: var(--lemon); }
+    .window-dot.d2 { background: var(--sky); }
+    .window-dot.d3 { background: var(--pink-400); }
+
+    .auth-body {
+      padding: 20px 18px 24px;
+    }
+
+    @media (min-width: 480px) {
+      .auth-body {
+        padding: 24px 26px 28px;
+      }
+    }
+
+    /* Tab Switcher Masuk / Daftar */
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 5px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 225, 240, 0.72);
+      border: 1.5px solid rgba(255, 148, 204, 0.45);
+      margin-bottom: 20px;
+    }
+
+    .auth-tab {
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: transparent;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .auth-tab.active {
+      background: linear-gradient(180deg, #ff85c8 0%, #ec3d9b 100%);
+      color: #ffffff;
+      box-shadow: var(--shadow-btn);
+    }
+
+    .view-heading {
+      margin: 0 0 4px;
+      font-size: 1.32rem;
+      font-weight: 700;
+      color: var(--ink-main);
+    }
+
+    .view-desc {
+      margin: 0 0 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    /* === SEKSI: FORMULIR & TOMBOL GLOSSY === */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ink-main);
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-input {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--glass-pink-border);
+      background: rgba(255, 255, 255, 0.88);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink-main);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .form-input.has-toggle {
+      padding-right: 46px;
+    }
+
+    .form-input::placeholder {
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .form-input:focus {
+      border-color: var(--pink-500);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(255, 148, 204, 0.35);
+    }
+
+    .toggle-pw-btn {
+      position: absolute;
+      right: 8px;
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .toggle-pw-btn:hover {
+      background: var(--pink-100);
+    }
+
+    .field-hint {
+      margin: 5px 0 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    .field-error {
+      margin: 5px 0 0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--danger-text);
+    }
+
+    /* Indikator kekuatan sandi */
+    .pw-meter {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pw-bar {
+      height: 6px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 194, 226, 0.5);
+      transition: var(--transition);
+    }
+
+    .pw-bar.weak { background: #fb7185; }
+    .pw-bar.medium { background: #fbbf24; }
+    .pw-bar.strong { background: #34d399; }
+
+    /* Kotak Alert Inline */
+    .alert-box {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      border: 1.5px solid transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .alert-box.error {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: var(--danger-text);
+    }
+
+    .alert-box.success {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: var(--success-text);
+    }
+
+    .alert-box.warn {
+      background: var(--warn-bg);
+      border-color: var(--warn-border);
+      color: var(--warn-text);
+    }
+
+    .alert-box.info {
+      background: rgba(214, 241, 255, 0.7);
+      border-color: rgba(125, 201, 245, 0.85);
+      color: #0c4a6e;
+    }
+
+    /* Tombol Glossy Y2K */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 11px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.94rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      text-decoration: none;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .btn:disabled {
+      opacity: 0.58;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #ff8ac9 0%, #ec3d9b 100%);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.65);
+      box-shadow: var(--shadow-btn);
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 10%;
+      right: 10%;
+      height: 44%;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--ink-main);
+      border-color: var(--pink-300);
+      box-shadow: 0 4px 12px rgba(236, 61, 155, 0.12);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--pink-50);
+      border-color: var(--pink-500);
+    }
+
+    .btn-soft {
+      background: rgba(255, 225, 240, 0.8);
+      color: var(--ink-main);
+      border-color: rgba(255, 148, 204, 0.55);
+    }
+
+    .btn-soft:hover:not(:disabled) {
+      background: var(--pink-200);
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+    }
+
+    .text-link-btn {
+      background: none;
+      border: none;
+      padding: 4px 2px;
+      font-family: var(--font-display);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--pink-600);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .text-link-btn:hover {
+      color: var(--ink-main);
+    }
+
+    .row-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* === SEKSI: 6 KOTAK OTP === */
+    .otp-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 245, 250, 0.9);
+      border: 1.5px solid var(--pink-200);
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--pink-100);
+      color: var(--ink-main);
+      border: 1px solid var(--pink-300);
+    }
+
+    .pill-badge.verified {
+      background: var(--mint);
+      border-color: #6ee7b7;
+      color: #065f46;
+    }
+
+    .otp-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      margin: 14px 0 18px;
+    }
+
+    .otp-box {
+      width: 100%;
+      height: 54px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--ink-main);
+      border-radius: 14px;
+      border: 2px solid var(--pink-300);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: inset 0 2px 5px rgba(236, 61, 155, 0.08);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .otp-box:focus {
+      border-color: var(--pink-500);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(236, 61, 155, 0.2), 0 0 0 3px rgba(255, 148, 204, 0.35);
+    }
+
+    .otp-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .otp-sub-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    /* === SEKSI: SHELL APLIKASI UTAMA (SETELAH MASUK) === */
+    .main-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(255, 194, 226, 0.85);
+      box-shadow: 0 4px 20px rgba(236, 61, 155, 0.08);
+    }
+
+    .topbar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-brand-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--pink-600), var(--pink-400));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .user-chip-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 12px 4px 5px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 245, 251, 0.92);
+      border: 1.5px solid var(--pink-300);
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink-main);
+      max-width: 190px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 3px 10px rgba(232, 50, 152, 0.14);
+    }
+
+    .user-chip:hover {
+      background: #ffffff;
+      border-color: var(--pink-500);
+      transform: translateY(-1px);
+    }
+
+    .user-chip-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* === SEKSI: AVATAR BADDIE SVG & TUTOR LENA === */
+    .avatar-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #ffe0f2, #ebd6ff);
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 12px rgba(232, 50, 152, 0.24);
+    }
+
+    .avatar-circle svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .avatar-nav {
+      width: 30px;
+      height: 30px;
+    }
+
+    .avatar-hero {
+      width: 78px;
+      height: 78px;
+      border-width: 3px;
+      box-shadow: 0 10px 24px rgba(232, 50, 152, 0.28), 0 0 0 3px rgba(255, 142, 208, 0.45);
+    }
+
+    .avatar-tutor {
+      width: 52px;
+      height: 52px;
+      border-width: 2.5px;
+      box-shadow: 0 6px 16px rgba(155, 77, 202, 0.24);
+    }
+
+    .home-hero-identity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-actions-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    @media (min-width: 700px) {
+      .hero-actions-col {
+        align-items: flex-end;
+      }
+    }
+
+    .tutor-lena-bar {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(235, 214, 255, 0.68));
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 6px 16px rgba(232, 50, 152, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tutor-lena-text {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink-main);
+    }
+
+    .tutor-lena-text small {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+
+    /* Picker Avatar di Modal Edit Profil */
+    .avatar-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 10px 0 16px;
+    }
+
+    @media (min-width: 440px) {
+      .avatar-picker-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .avatar-option {
+      border: 2px solid rgba(255, 142, 208, 0.55);
+      background: rgba(255, 255, 255, 0.86);
+      border-radius: var(--radius-lg);
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--ink-main);
+    }
+
+    .avatar-option:hover {
+      background: #ffffff;
+      border-color: var(--pink-500);
+      transform: translateY(-2px);
+    }
+
+    .avatar-option.selected {
+      background: linear-gradient(160deg, #fff5fb 0%, #ffe0f2 100%);
+      border-color: var(--pink-600);
+      box-shadow: 0 8px 18px rgba(232, 50, 152, 0.24), 0 0 0 3px rgba(255, 142, 208, 0.45);
+    }
+
+    .avatar-option .avatar-circle {
+      width: 64px;
+      height: 64px;
+    }
+
+    .avatar-option-name {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .avatar-option-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      text-align: center;
+    }
+
+    /* === SEKSI: LERNMODUS DOCK (ALA DOCK MACOS GLOSSY) === */
+    .lernmodus-dock-section {
+      margin-bottom: 18px;
+      padding: 18px 16px 20px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 224, 242, 0.68) 100%);
+    }
+
+    .dock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .dock-tray-scroll {
+      width: 100%;
+      overflow-x: auto;
+      padding: 18px 6px 10px;
+      scrollbar-width: none;
+    }
+
+    .dock-tray-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .macos-dock {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+      width: max-content;
+      min-width: 100%;
+      margin: 0 auto;
+      padding: 12px 16px;
+      border-radius: 26px;
+      background: var(--dock-bg);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      box-shadow:
+        0 14px 32px rgba(232, 50, 152, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -3px 8px rgba(255, 142, 208, 0.25);
+    }
+
+    @media (min-width: 780px) {
+      .macos-dock {
+        justify-content: center;
+        gap: 14px;
+        width: fit-content;
+        min-width: auto;
+        padding: 12px 22px;
+      }
+    }
+
+    .dock-item {
+      position: relative;
+      border: none;
+      background: transparent;
+      padding: 4px 2px;
+      min-width: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: var(--ink-main);
+      transform-origin: bottom center;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), filter 0.22s ease;
+    }
+
+    .dock-icon {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      box-shadow:
+        0 8px 18px rgba(59, 10, 42, 0.16),
+        inset 0 3px 6px rgba(255, 255, 255, 0.85),
+        inset 0 -3px 6px rgba(59, 10, 42, 0.12);
+      overflow: hidden;
+    }
+
+    /* Pantulan glossy khas ikon macOS Aqua / Y2K */
+    .dock-icon::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 6%;
+      right: 6%;
+      height: 46%;
+      border-radius: 14px 14px 50% 50%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.08));
+      pointer-events: none;
+    }
+
+    .dock-icon svg {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 2px 3px rgba(59, 10, 42, 0.18));
+    }
+
+    .dock-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink-main);
+      white-space: nowrap;
+    }
+
+    .dock-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(232, 50, 152, 0.45);
+    }
+
+    /* Efek Magnify ala macOS Dock */
+    @media (hover: hover) and (pointer: fine) {
+      .dock-item:hover,
+      .dock-item:focus-visible {
+        transform: translateY(-10px) scale(1.26);
+        z-index: 5;
+        outline: none;
+      }
+
+      .dock-item.dock-neighbor {
+        transform: translateY(-4px) scale(1.1);
+        z-index: 3;
+      }
+    }
+
+    .dock-status-pill {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      text-align: center;
+    }
+
+    /* === SEKSI: PREFERS-REDUCED-MOTION === */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .sparkle,
+      .bokeh-orb,
+      .lens-flare,
+      .crystal-ornament,
+      .brand-logo,
+      .toast-item {
+        animation: none !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+
+      .dock-item:hover,
+      .dock-item:focus-visible,
+      .dock-item.dock-neighbor {
+        transform: none !important;
+      }
+    }
+
+    /* Navigasi Tab Utama (6 Modul) */
+    .main-nav {
+      max-width: 1080px;
+      width: 100%;
+      margin: 14px auto 0;
+      padding: 0 14px;
+    }
+
+    .nav-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 6px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.68);
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      box-shadow: 0 6px 20px rgba(236, 61, 155, 0.1);
+      scrollbar-width: none;
+    }
+
+    .nav-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-btn {
+      flex: 1 0 auto;
+      min-height: 40px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 225, 240, 0.75);
+      color: var(--ink-main);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(180deg, #ff85c8 0%, #ec3d9b 100%);
+      color: #ffffff;
+      box-shadow: var(--shadow-btn);
+    }
+
+    /* Area Konten Utama */
+    .main-content {
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 18px 14px 48px;
+      flex: 1;
+    }
+
+    .hero-welcome {
+      padding: 22px 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.86) 0%, rgba(255, 225, 240, 0.78) 55%, rgba(232, 213, 255, 0.78) 100%);
+      margin-bottom: 18px;
+    }
+
+    .welcome-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 700px) {
+      .welcome-grid {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .hero-welcome {
+        padding: 26px 28px;
+      }
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    @media (min-width: 680px) {
+      .stat-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .stat-card {
+      padding: 16px;
+      text-align: center;
+      border-radius: var(--radius-lg);
+      background: var(--glass-bg-strong);
+      border: 2px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(236, 61, 155, 0.1);
+    }
+
+    .stat-emoji {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink-main);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 820px) {
+      .section-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    .card-pad {
+      padding: 20px;
+    }
+
+    @media (min-width: 520px) {
+      .card-pad {
+        padding: 24px;
+      }
+    }
+
+    .module-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 520px) {
+      .module-quick-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .module-tile {
+      border: 2px solid rgba(255, 194, 226, 0.8);
+      background: rgba(255, 255, 255, 0.84);
+      border-radius: var(--radius-lg);
+      padding: 14px 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--ink-main);
+    }
+
+    .module-tile:hover {
+      transform: translateY(-2px);
+      border-color: var(--pink-400);
+      background: #ffffff;
+      box-shadow: 0 8px 18px rgba(236, 61, 155, 0.14);
+    }
+
+    .module-tile-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .module-tile-sub {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Placeholder Halaman Tahap Berikutnya */
+    .placeholder-card {
+      padding: 32px 20px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .placeholder-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 14px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--pink-100), var(--lavender));
+      border: 2px solid #ffffff;
+      box-shadow: var(--shadow-y2k);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .placeholder-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 22px;
+    }
+
+    /* Panel Backup */
+    .backup-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    .meta-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: rgba(255, 245, 250, 0.85);
+      border: 1px solid rgba(255, 194, 226, 0.65);
+    }
+
+    .meta-list strong {
+      color: var(--ink-main);
+      word-break: break-all;
+      text-align: right;
+    }
+
+    /* === SEKSI: MODAL KUSTOM (PENGGANTI ALERT & CONFIRM) === */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(74, 21, 75, 0.45);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 460px;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .recovery-code-box {
+      padding: 16px 14px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #fff5fa, #fff3b8);
+      border: 2px dashed var(--pink-500);
+      text-align: center;
+      margin: 14px 0;
+    }
+
+    .recovery-code-text {
+      font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 1.38rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--ink-main);
+      word-break: break-all;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 14px 0 18px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink-main);
+      cursor: pointer;
+    }
+
+    .checkbox-row input {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--pink-500);
+      flex-shrink: 0;
+    }
+
+    /* === SEKSI: TOAST NOTIFIKASI === */
+    .toast-stack {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: calc(100vw - 32px);
+      width: 340px;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      pointer-events: auto;
+      padding: 12px 15px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 2px solid var(--pink-400);
+      box-shadow: 0 10px 24px rgba(74, 21, 75, 0.16);
+      font-family: var(--font-display);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ink-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.25s ease-out;
+    }
+
+    .toast-item.error {
+      border-color: #f43f5e;
+      background: #fff1f2;
+      color: var(--danger-text);
+    }
+
+    .toast-item.success {
+      border-color: #10b981;
+      background: #ecfdf5;
+      color: var(--success-text);
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .app-footer {
+      text-align: center;
+      padding: 14px 16px 24px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    @media (max-width: 390px) {
+      .otp-grid { gap: 6px; }
+      .otp-box { height: 48px; font-size: 1.25rem; border-radius: 12px; }
+      .topbar-brand-name { font-size: 1.08rem; }
+      .user-chip { max-width: 132px; padding: 3px 9px 3px 4px; font-size: 0.76rem; }
+      .avatar-hero { width: 64px; height: 64px; }
+      .dock-item { min-width: 66px; }
+      .dock-icon { width: 50px; height: 50px; border-radius: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dekorasi Wallpaper macOS Girly Glam: Bokeh, Lens Flare, Kupu-kupu & Hati Kristal (SVG Orisinal) -->
+  <div class="sparkle-layer" aria-hidden="true">
+    <span class="lens-flare"></span>
+    <span class="bokeh-orb b1"></span>
+    <span class="bokeh-orb b2"></span>
+    <span class="bokeh-orb b3"></span>
+    <span class="bokeh-orb b4"></span>
+
+    <!-- Kupu-kupu Kristal 1 -->
+    <svg class="crystal-ornament co-butterfly-1" viewBox="0 0 80 80" fill="none">
+      <defs>
+        <linearGradient id="wp-bf1" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+          <stop offset="50%" stop-color="#ff99d6" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#d5a6ff" stop-opacity="0.88" />
+        </linearGradient>
+      </defs>
+      <path d="M40 38C32 16 10 10 10 28C10 40 25 45 38 43C24 46 15 58 23 66C31 72 39 58 40 48Z" fill="url(#wp-bf1)" stroke="#ffffff" stroke-width="2" />
+      <path d="M40 38C48 16 70 10 70 28C70 40 55 45 42 43C56 46 65 58 57 66C49 72 41 58 40 48Z" fill="url(#wp-bf1)" stroke="#ffffff" stroke-width="2" />
+      <rect x="38" y="29" width="4" height="24" rx="2" fill="#fff5fb" stroke="#e83298" stroke-width="1" />
+      <path d="M39 29C36 22 32 19 29 20M41 29C44 22 48 19 51 20" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" />
+    </svg>
+
+    <!-- Hati Kristal 1 -->
+    <svg class="crystal-ornament co-heart-1" viewBox="0 0 64 64" fill="none">
+      <defs>
+        <linearGradient id="wp-ht1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="45%" stop-color="#ff8ed0" />
+          <stop offset="100%" stop-color="#e83298" />
+        </linearGradient>
+      </defs>
+      <path d="M32 56L10 34C4 28 4 17 12 12C19 8 27 11 32 18C37 11 45 8 52 12C60 17 60 28 54 34L32 56Z" fill="url(#wp-ht1)" stroke="#ffffff" stroke-width="2.2" />
+      <path d="M32 18L22 32L32 54M32 18L42 32L32 54M11 26L22 32L42 32L53 26" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1.3" />
+    </svg>
+
+    <!-- Kupu-kupu Kristal 2 -->
+    <svg class="crystal-ornament co-butterfly-2" viewBox="0 0 80 80" fill="none">
+      <defs>
+        <linearGradient id="wp-bf2" x1="80" y1="0" x2="0" y2="80" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#fff5fb" />
+          <stop offset="55%" stop-color="#ff69b4" stop-opacity="0.88" />
+          <stop offset="100%" stop-color="#bfe8ff" stop-opacity="0.9" />
+        </linearGradient>
+      </defs>
+      <path d="M40 38C32 16 10 10 10 28C10 40 25 45 38 43C24 46 15 58 23 66C31 72 39 58 40 48Z" fill="url(#wp-bf2)" stroke="#ffffff" stroke-width="2" />
+      <path d="M40 38C48 16 70 10 70 28C70 40 55 45 42 43C56 46 65 58 57 66C49 72 41 58 40 48Z" fill="url(#wp-bf2)" stroke="#ffffff" stroke-width="2" />
+      <rect x="38" y="29" width="4" height="24" rx="2" fill="#ffffff" stroke="#e83298" stroke-width="1" />
+    </svg>
+
+    <!-- Hati Kristal 2 -->
+    <svg class="crystal-ornament co-heart-2" viewBox="0 0 64 64" fill="none">
+      <defs>
+        <linearGradient id="wp-ht2" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="50%" stop-color="#ebd6ff" />
+          <stop offset="100%" stop-color="#ff8ed0" />
+        </linearGradient>
+      </defs>
+      <path d="M32 56L10 34C4 28 4 17 12 12C19 8 27 11 32 18C37 11 45 8 52 12C60 17 60 28 54 34L32 56Z" fill="url(#wp-ht2)" stroke="#ffffff" stroke-width="2.2" />
+      <path d="M20 22L32 30L44 22" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.8" />
+    </svg>
+
+    <span class="sparkle s1">✦</span>
+    <span class="sparkle s2">♡</span>
+    <span class="sparkle s3">★</span>
+    <span class="sparkle s4">✦</span>
+    <span class="sparkle s5">✿</span>
+    <span class="sparkle s6">✧</span>
+  </div>
+
+  <div class="app-root">
+    <!-- ==================== SHELL OTENTIKASI (BELUM MASUK) ==================== -->
+    <main id="auth-shell" class="auth-shell">
+      <div class="auth-wrapper">
+        <header class="brand-hero">
+          <div class="brand-logo">
+            <span class="brand-flower" aria-hidden="true">✿</span>
+            <h1 class="brand-title">Lily App</h1>
+          </div>
+          <p class="brand-subtitle">Belajar Bahasa Jerman untuk Penutur Indonesia ✦</p>
+        </header>
+
+        <section class="glass-card" aria-label="Formulir Akun Lily App">
+          <!-- Title Bar Retro Y2K -->
+          <div class="auth-window-bar">
+            <span id="auth-window-title" class="window-title">🎀 lily_app_login.exe</span>
+            <div class="window-dots" aria-hidden="true">
+              <span class="window-dot d1"></span>
+              <span class="window-dot d2"></span>
+              <span class="window-dot d3"></span>
+            </div>
+          </div>
+
+          <div class="auth-body">
+            <!-- Tab Masuk / Daftar -->
+            <div id="auth-tabs" class="auth-tabs" role="tablist" aria-label="Pilih Masuk atau Daftar">
+              <button type="button" id="tab-btn-login" class="auth-tab active" role="tab" aria-selected="true">
+                ★ Masuk
+              </button>
+              <button type="button" id="tab-btn-register" class="auth-tab" role="tab" aria-selected="false">
+                ✿ Daftar Akun
+              </button>
+            </div>
+
+            <!-- ===== VIEW 1: MASUK ===== -->
+            <form id="view-login" novalidate>
+              <h2 class="view-heading">Willkommen zurück! ✨</h2>
+              <p class="view-desc">Masuk dengan email dan kata sandi. Akun terverifikasi tidak perlu OTP lagi.</p>
+
+              <div id="login-alert" class="alert-box error hidden" role="alert" aria-live="polite"></div>
+
+              <div class="form-group">
+                <label class="form-label" for="login-email">Alamat Email</label>
+                <input id="login-email" class="form-input" type="email" autocomplete="email" placeholder="nama@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <div class="row-between" style="margin-bottom: 6px;">
+                  <label class="form-label" for="login-password" style="margin-bottom: 0;">Kata Sandi</label>
+                  <button type="button" id="btn-goto-forgot" class="text-link-btn">Lupa kata sandi?</button>
+                </div>
+                <div class="input-wrap">
+                  <input id="login-password" class="form-input has-toggle" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi Anda" required />
+                  <button type="button" class="toggle-pw-btn" data-toggle-pw="login-password" aria-label="Tampilkan atau sembunyikan kata sandi">👁️</button>
+                </div>
+              </div>
+
+              <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block">
+                Masuk ke Lily App ♡
+              </button>
+            </form>
+
+            <!-- ===== VIEW 2: DAFTAR ===== -->
+            <form id="view-register" class="hidden" novalidate>
+              <h2 class="view-heading">Buat Akun Baru 🎀</h2>
+              <p class="view-desc">Verifikasi email cukup <strong>sekali saja</strong> lewat kode OTP 6 digit.</p>
+
+              <div id="register-alert" class="alert-box error hidden" role="alert" aria-live="polite"></div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-name">Nama Lengkap</label>
+                <input id="reg-name" class="form-input" type="text" autocomplete="name" maxlength="60" placeholder="cth. Nadya Putri" required />
+                <p id="err-reg-name" class="field-error hidden"></p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-email">Alamat Email Aktif</label>
+                <input id="reg-email" class="form-input" type="email" autocomplete="email" maxlength="120" placeholder="nama@email.com" required />
+                <p id="err-reg-email" class="field-error hidden"></p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-password">Kata Sandi</label>
+                <div class="input-wrap">
+                  <input id="reg-password" class="form-input has-toggle" type="password" autocomplete="new-password" placeholder="Minimal 8 karakter" required />
+                  <button type="button" class="toggle-pw-btn" data-toggle-pw="reg-password" aria-label="Tampilkan atau sembunyikan kata sandi">👁️</button>
+                </div>
+                <div class="pw-meter" aria-hidden="true">
+                  <span id="pw-bar-1" class="pw-bar"></span>
+                  <span id="pw-bar-2" class="pw-bar"></span>
+                  <span id="pw-bar-3" class="pw-bar"></span>
+                </div>
+                <p id="reg-pw-hint" class="field-hint">Minimal 8 karakter (disarankan huruf + angka).</p>
+                <p id="err-reg-password" class="field-error hidden"></p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-password-confirm">Ulangi Kata Sandi</label>
+                <div class="input-wrap">
+                  <input id="reg-password-confirm" class="form-input has-toggle" type="password" autocomplete="new-password" placeholder="Ketik ulang kata sandi" required />
+                  <button type="button" class="toggle-pw-btn" data-toggle-pw="reg-password-confirm" aria-label="Tampilkan atau sembunyikan ulangi kata sandi">👁️</button>
+                </div>
+                <p id="err-reg-confirm" class="field-error hidden"></p>
+              </div>
+
+              <button type="submit" id="btn-reg-submit" class="btn btn-primary btn-block">
+                ✦ Daftar &amp; Kirim Kode OTP
+              </button>
+            </form>
+
+            <!-- ===== VIEW 3: VERIFIKASI OTP (SEKALI SAJA) ===== -->
+            <div id="view-otp" class="hidden">
+              <h2 class="view-heading">Verifikasi Email 💌</h2>
+              <p class="view-desc">
+                Masukkan 6 digit kode OTP yang telah dikirim ke <strong id="otp-email-display"></strong>.
+              </p>
+
+              <div class="otp-meta-bar">
+                <span id="otp-timer-badge" class="pill-badge">⏳ Berlaku 10:00</span>
+                <span id="otp-attempts-badge" class="pill-badge">Sisa percobaan: 5/5</span>
+              </div>
+
+              <div id="otp-alert" class="alert-box hidden" role="alert" aria-live="polite"></div>
+
+              <form id="form-otp" novalidate>
+                <div class="otp-grid" role="group" aria-label="6 kotak kode OTP">
+                  <input class="otp-box" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" aria-label="Digit OTP ke-1" />
+                  <input class="otp-box" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit OTP ke-2" />
+                  <input class="otp-box" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit OTP ke-3" />
+                  <input class="otp-box" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit OTP ke-4" />
+                  <input class="otp-box" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit OTP ke-5" />
+                  <input class="otp-box" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit OTP ke-6" />
+                </div>
+
+                <div class="otp-actions">
+                  <button type="submit" id="btn-otp-verify" class="btn btn-primary btn-block">
+                    ✓ Verifikasi &amp; Aktifkan Akun
+                  </button>
+
+                  <div class="otp-sub-actions">
+                    <button type="button" id="btn-otp-resend" class="btn btn-soft btn-sm">
+                      ↻ Kirim ulang kode
+                    </button>
+                    <button type="button" id="btn-otp-change-email" class="text-link-btn">
+                      ← Ganti email
+                    </button>
+                  </div>
+                  <p id="otp-quota-hint" class="field-hint" style="margin: 0;">Batas kirim ulang: maks 3 kali per jam.</p>
+                </div>
+              </form>
+            </div>
+
+            <!-- ===== VIEW 4: LUPA KATA SANDI (KODE PEMULIHAN) ===== -->
+            <form id="view-forgot" class="hidden" novalidate>
+              <h2 class="view-heading">Reset Kata Sandi 🔑</h2>
+              <p class="view-desc">Gunakan email akun dan Kode Pemulihan 12 karakter yang Anda simpan saat mendaftar.</p>
+
+              <div id="forgot-alert" class="alert-box hidden" role="alert" aria-live="polite"></div>
+
+              <div class="form-group">
+                <label class="form-label" for="forgot-email">Alamat Email Akun</label>
+                <input id="forgot-email" class="form-input" type="email" autocomplete="email" placeholder="nama@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="forgot-code">Kode Pemulihan (12 Karakter)</label>
+                <input id="forgot-code" class="form-input" type="text" autocomplete="off" placeholder="XXXX-XXXX-XXXX" maxlength="16" required />
+                <p class="field-hint">Tanda hubung (-) opsional, huruf besar/kecil otomatis disesuaikan.</p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="forgot-new-pw">Kata Sandi Baru</label>
+                <div class="input-wrap">
+                  <input id="forgot-new-pw" class="form-input has-toggle" type="password" autocomplete="new-password" placeholder="Minimal 8 karakter" required />
+                  <button type="button" class="toggle-pw-btn" data-toggle-pw="forgot-new-pw" aria-label="Tampilkan atau sembunyikan kata sandi baru">👁️</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="forgot-confirm-pw">Ulangi Kata Sandi Baru</label>
+                <div class="input-wrap">
+                  <input id="forgot-confirm-pw" class="form-input has-toggle" type="password" autocomplete="new-password" placeholder="Ketik ulang kata sandi baru" required />
+                  <button type="button" class="toggle-pw-btn" data-toggle-pw="forgot-confirm-pw" aria-label="Tampilkan atau sembunyikan konfirmasi kata sandi baru">👁️</button>
+                </div>
+              </div>
+
+              <button type="submit" id="btn-forgot-submit" class="btn btn-primary btn-block">
+                Simpan Kata Sandi Baru ✦
+              </button>
+
+              <div style="text-align: center; margin-top: 12px;">
+                <button type="button" id="btn-forgot-back" class="text-link-btn">← Kembali ke halaman Masuk</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <footer class="app-footer">
+          Lily App ✿ Data akun disimpan lokal &amp; terenkripsi PBKDF2 di perangkat Anda.
+        </footer>
+      </div>
+    </main>
+
+    <!-- ==================== SHELL APLIKASI UTAMA (TERBUKA SETELAH MASUK) ==================== -->
+    <div id="main-shell" class="main-shell hidden">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="topbar-brand">
+            <span class="brand-flower" aria-hidden="true">✿</span>
+            <span class="topbar-brand-name">Lily App</span>
+          </div>
+
+          <div class="user-chip-wrap">
+            <button type="button" id="btn-open-edit-profile-nav" class="user-chip" title="Klik untuk Edit Profil & Avatar">
+              <span id="topbar-user-avatar" class="avatar-circle avatar-nav" aria-hidden="true"></span>
+              <span id="topbar-user-name" class="user-chip-name">Pelajar</span>
+            </button>
+            <button type="button" id="btn-logout" class="btn btn-secondary btn-sm">
+              Keluar
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Navigasi 6 Seksi Utama -->
+      <nav class="main-nav" aria-label="Navigasi Utama Lily App">
+        <div class="nav-scroll">
+          <button type="button" class="nav-btn active" data-page="home">🏠 Home</button>
+          <button type="button" class="nav-btn" data-page="misi">🎯 Misi</button>
+          <button type="button" class="nav-btn" data-page="skor">🏆 Skor</button>
+          <button type="button" class="nav-btn" data-page="belajar">📚 Belajar</button>
+          <button type="button" class="nav-btn" data-page="quiz">⚡ Quiz</button>
+          <button type="button" class="nav-btn" data-page="notebook">📓 Notebook</button>
+        </div>
+      </nav>
+
+      <main class="main-content">
+        <!-- ===== HALAMAN: HOME ===== -->
+        <section id="page-home" class="app-page">
+          <div class="glass-card hero-welcome">
+            <div class="welcome-grid">
+              <div>
+                <div class="home-hero-identity">
+                  <div id="home-user-avatar" class="avatar-circle avatar-hero" aria-label="Avatar profil pengguna"></div>
+                  <div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
+                      <span class="pill-badge verified">✓ Email Terverifikasi Permanen</span>
+                      <span id="home-avatar-label" class="pill-badge">✨ Y2K Pinky</span>
+                    </div>
+                    <h2 class="view-heading" style="font-size: 1.55rem; margin-bottom: 4px;">
+                      Halo, <span id="home-user-name">Pelajar</span>! 🌸
+                    </h2>
+                    <p class="view-desc" style="margin-bottom: 0;">
+                      Selamat datang di <strong>Lily App</strong>. Ruang belajar Bahasa Jerman pribadimu siap menemanimu hari ini.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Bar Sapaan Tutor Lena (Avatar Terpisah) -->
+                <div class="tutor-lena-bar">
+                  <div id="tutor-lena-avatar" class="avatar-circle avatar-tutor" aria-label="Avatar Tutor Lena"></div>
+                  <div class="tutor-lena-text">
+                    Tutor Lena • Pendamping Bahasa Jerman 🎀
+                    <small>"Hallo! Pilih mode belajar di Lernmodus Dock di bawah atau perbarui avatarmu di Edit Profil ya!"</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-actions-col">
+                <button type="button" id="btn-open-edit-profile-home" class="btn btn-secondary">
+                  ✏️ Edit Profil &amp; Avatar
+                </button>
+                <button type="button" class="btn btn-primary" data-jump-page="belajar">
+                  Mulai Jelajahi Modul →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ringkasan Streak & Level Akun -->
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-emoji">🌸</span>
+              <div id="stat-level" class="stat-value">A1</div>
+              <div class="stat-label">Level Saat Ini</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-emoji">⭐</span>
+              <div id="stat-xp" class="stat-value">0 XP</div>
+              <div class="stat-label">Total Skor</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-emoji">🔥</span>
+              <div id="stat-streak" class="stat-value">0 Hari</div>
+              <div class="stat-label">Streak Belajar</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-emoji">📓</span>
+              <div id="stat-notes" class="stat-value">0</div>
+              <div class="stat-label">Catatan Kosakata</div>
+            </div>
+          </div>
+
+          <!-- LERNMODUS DOCK (7 Ikon Glossy ala Dock macOS) -->
+          <div class="glass-card lernmodus-dock-section" aria-label="Lernmodus Dock">
+            <div class="dock-header">
+              <div>
+                <h3 class="view-heading" style="font-size: 1.18rem; margin-bottom: 2px;">✨ Lernmodus Dock</h3>
+                <p class="view-desc" style="margin-bottom: 0;">
+                  7 mode belajar utama bergaya dock macOS. Arahkan kursor atau ketuk ikon untuk melihat pratinjau!
+                </p>
+              </div>
+              <span class="pill-badge">7 Mode • Segera hadir</span>
+            </div>
+
+            <div class="dock-tray-scroll">
+              <div id="lernmodus-dock" class="macos-dock" role="toolbar" aria-label="Pilihan 7 Lernmodus"></div>
+            </div>
+
+            <div id="dock-status-pill" class="dock-status-pill" aria-live="polite">
+              💎 Ketuk salah satu ikon Lernmodus untuk info status modul.
+            </div>
+          </div>
+
+          <div class="section-grid">
+            <!-- Kartu Pintasan Modul Tahap Berikutnya -->
+            <div class="glass-card card-pad">
+              <h3 class="view-heading" style="font-size: 1.15rem;">Peta Ruang Belajar ✦</h3>
+              <p class="view-desc" style="margin-bottom: 0;">
+                Kerangka modul tahap berikutnya sudah terhubung dengan penyimpanan data khusus akunmu.
+              </p>
+
+              <div class="module-quick-grid">
+                <button type="button" class="module-tile" data-jump-page="misi">
+                  <span style="font-size: 1.35rem;">🎯</span>
+                  <span class="module-tile-title">Misi Harian</span>
+                  <span class="module-tile-sub">Target &amp; lencana</span>
+                </button>
+                <button type="button" class="module-tile" data-jump-page="skor">
+                  <span style="font-size: 1.35rem;">🏆</span>
+                  <span class="module-tile-title">Skor &amp; XP</span>
+                  <span class="module-tile-sub">Riwayat nilai</span>
+                </button>
+                <button type="button" class="module-tile" data-jump-page="belajar">
+                  <span style="font-size: 1.35rem;">📚</span>
+                  <span class="module-tile-title">Belajar</span>
+                  <span class="module-tile-sub">Materi A1–B2</span>
+                </button>
+                <button type="button" class="module-tile" data-jump-page="quiz">
+                  <span style="font-size: 1.35rem;">⚡</span>
+                  <span class="module-tile-title">Quiz Cepat</span>
+                  <span class="module-tile-sub">Latihan &amp; game</span>
+                </button>
+                <button type="button" class="module-tile" data-jump-page="notebook">
+                  <span style="font-size: 1.35rem;">📓</span>
+                  <span class="module-tile-title">Notebook</span>
+                  <span class="module-tile-sub">Kosakata pribadi</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kartu Profil & Backup JSON -->
+            <div class="glass-card card-pad">
+              <h3 class="view-heading" style="font-size: 1.15rem;">Akun &amp; Backup Data 💾</h3>
+              <p class="view-desc" style="margin-bottom: 0;">
+                Simpan cadangan akun &amp; progresmu dalam format JSON agar mudah dipindahkan ke perangkat lain.
+              </p>
+
+              <ul class="meta-list">
+                <li><span>Email</span><strong id="profile-email">-</strong></li>
+                <li><span>Status Verifikasi</span><strong style="color: #047857;">Aktif Permanen ✓</strong></li>
+                <li><span>Terdaftar Sejak</span><strong id="profile-joined">-</strong></li>
+                <li><span>Total Akun di Browser</span><strong id="profile-account-count">1</strong></li>
+              </ul>
+
+              <div class="backup-actions">
+                <button type="button" id="btn-export-backup" class="btn btn-primary btn-block">
+                  ⬇ Unduh Backup Akun &amp; Progres (JSON)
+                </button>
+                <button type="button" id="btn-import-backup-trigger" class="btn btn-secondary btn-block">
+                  ⬆ Impor Backup (JSON)
+                </button>
+                <input id="input-import-backup" type="file" accept="application/json,.json" class="hidden" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== PLACEHOLDER: MISI ===== -->
+        <section id="page-misi" class="app-page hidden">
+          <div class="glass-card placeholder-card">
+            <div class="placeholder-icon">🎯</div>
+            <h2 class="view-heading">Misi Belajar Bahasa Jerman</h2>
+            <p class="view-desc">
+              Halaman placeholder tahap berikutnya. Di sini akan hadir misi harian, tantangan kosakata <em>der/die/das</em>, serta hadiah XP yang tersimpan khusus untuk akunmu.
+            </p>
+            <div class="placeholder-tags">
+              <span class="pill-badge">Objek siap: DAYS</span>
+              <span class="pill-badge">Data terisolasi per akun ✓</span>
+            </div>
+            <button type="button" class="btn btn-secondary" data-jump-page="home">← Kembali ke Home</button>
+          </div>
+        </section>
+
+        <!-- ===== PLACEHOLDER: SKOR ===== -->
+        <section id="page-skor" class="app-page hidden">
+          <div class="glass-card placeholder-card">
+            <div class="placeholder-icon">🏆</div>
+            <h2 class="view-heading">Skor &amp; Pencapaian</h2>
+            <p class="view-desc">
+              Halaman placeholder tahap berikutnya. Grafik perkembangan XP, riwayat nilai latihan, dan rekor streak akan muncul di sini.
+            </p>
+            <div class="placeholder-tags">
+              <span class="pill-badge">Skor akun ini: <span id="placeholder-score-val">0</span> XP</span>
+              <span class="pill-badge">Siap integrasi Backup JSON ✓</span>
+            </div>
+            <button type="button" class="btn btn-secondary" data-jump-page="home">← Kembali ke Home</button>
+          </div>
+        </section>
+
+        <!-- ===== PLACEHOLDER: BELAJAR ===== -->
+        <section id="page-belajar" class="app-page hidden">
+          <div class="glass-card placeholder-card">
+            <div class="placeholder-icon">📚</div>
+            <h2 class="view-heading">Kurikulum Belajar Bahasa Jerman</h2>
+            <p class="view-desc">
+              Halaman placeholder tahap berikutnya. Materi harian, latihan ekstra, dan skenario tutor percakapan bahasa Jerman untuk penutur Indonesia akan dimuat dari kerangka data aplikasi.
+            </p>
+            <div class="placeholder-tags">
+              <span class="pill-badge">DAYS {}</span>
+              <span class="pill-badge">TRAINING_EXTRAS {}</span>
+              <span class="pill-badge">TUTOR_SCENARIOS {}</span>
+            </div>
+            <button type="button" class="btn btn-secondary" data-jump-page="home">← Kembali ke Home</button>
+          </div>
+        </section>
+
+        <!-- ===== PLACEHOLDER: QUIZ ===== -->
+        <section id="page-quiz" class="app-page hidden">
+          <div class="glass-card placeholder-card">
+            <div class="placeholder-icon">⚡</div>
+            <h2 class="view-heading">Quiz &amp; Permainan Interaktif</h2>
+            <p class="view-desc">
+              Halaman placeholder tahap berikutnya. Kuis kosakata, tata bahasa, dan permainan cepat akan mengambil soal dari objek <code>GAME_POOLS</code>.
+            </p>
+            <div class="placeholder-tags">
+              <span class="pill-badge">GAME_POOLS {}</span>
+              <span class="pill-badge">Skor otomatis masuk ke profil ✓</span>
+            </div>
+            <button type="button" class="btn btn-secondary" data-jump-page="home">← Kembali ke Home</button>
+          </div>
+        </section>
+
+        <!-- ===== PLACEHOLDER: NOTEBOOK ===== -->
+        <section id="page-notebook" class="app-page hidden">
+          <div class="glass-card placeholder-card">
+            <div class="placeholder-icon">📓</div>
+            <h2 class="view-heading">Notebook Kosakata Pribadi</h2>
+            <p class="view-desc">
+              Halaman placeholder tahap berikutnya. Tempat mencatat kata benda, kata kerja, dan contoh kalimat Bahasa Jerman yang sepenuhnya terpisah antar akun di browser ini.
+            </p>
+            <div class="placeholder-tags">
+              <span class="pill-badge">Penyimpanan terpisah per userId ✓</span>
+              <span class="pill-badge">Ikut tersimpan di Backup JSON ✓</span>
+            </div>
+            <button type="button" class="btn btn-secondary" data-jump-page="home">← Kembali ke Home</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        Lily App ✿ Y2K Pink Edition • Multi-Akun Lokal &amp; Aman
+      </footer>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 1: KODE PEMULIHAN (DITAMPILKAN SEKALI SAAT DAFTAR) ==================== -->
+  <div id="modal-recovery" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-recovery-title">
+    <div class="glass-card modal-card">
+      <div class="auth-window-bar">
+        <span class="window-title">🔑 kode_pemulihan_rahasia.txt</span>
+        <div class="window-dots" aria-hidden="true">
+          <span class="window-dot d1"></span>
+          <span class="window-dot d2"></span>
+          <span class="window-dot d3"></span>
+        </div>
+      </div>
+
+      <div class="card-pad">
+        <h2 id="modal-recovery-title" class="view-heading">Simpan Kode Pemulihan Anda! ✨</h2>
+        <p class="view-desc" style="margin-bottom: 10px;">
+          Akun Anda sudah aktif permanen. Catat kode 12 karakter di bawah ini untuk mereset kata sandi bila suatu saat lupa.
+        </p>
+
+        <div class="alert-box warn">
+          <span>⚠️ <strong>PERINGATAN PENTING:</strong> Kode Pemulihan ini hanya ditampilkan <strong>SEKALI INI SAJA</strong> dan tidak disimpan secara polos. Jika hilang, Anda tidak dapat memulihkan kata sandi yang terlupa.</span>
+        </div>
+
+        <div class="recovery-code-box">
+          <div id="recovery-code-display" class="recovery-code-text">----</div>
+        </div>
+
+        <button type="button" id="btn-copy-recovery" class="btn btn-secondary btn-block">
+          📋 Salin Kode Pemulihan
+        </button>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="chk-recovery-saved" />
+          <span>Saya sudah menyalin atau mencatat Kode Pemulihan 12 karakter ini di tempat yang aman.</span>
+        </label>
+
+        <button type="button" id="btn-close-recovery" class="btn btn-primary btn-block" disabled>
+          Lanjut ke Home Lily App ♡
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: KONFIRMASI IMPOR BACKUP JSON ==================== -->
+  <div id="modal-import" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-import-title">
+    <div class="glass-card modal-card">
+      <div class="auth-window-bar">
+        <span class="window-title">💾 konfirmasi_impor_backup.json</span>
+        <div class="window-dots" aria-hidden="true">
+          <span class="window-dot d1"></span>
+          <span class="window-dot d2"></span>
+          <span class="window-dot d3"></span>
+        </div>
+      </div>
+
+      <div class="card-pad">
+        <h2 id="modal-import-title" class="view-heading">Konfirmasi Impor Backup</h2>
+        <p class="view-desc">Periksa detail file backup di bawah ini sebelum melanjutkan impor.</p>
+
+        <ul class="meta-list" style="margin-bottom: 14px;">
+          <li><span>Nama Akun</span><strong id="import-preview-name">-</strong></li>
+          <li><span>Email</span><strong id="import-preview-email">-</strong></li>
+          <li><span>Waktu Backup</span><strong id="import-preview-date">-</strong></li>
+          <li><span>Tindakan</span><strong id="import-preview-action">-</strong></li>
+        </ul>
+
+        <div id="import-warning-box" class="alert-box warn hidden"></div>
+
+        <div class="row-between" style="gap: 10px; margin-top: 16px;">
+          <button type="button" id="btn-import-cancel" class="btn btn-secondary" style="flex: 1;">Batal</button>
+          <button type="button" id="btn-import-confirm" class="btn btn-primary" style="flex: 1;">Ya, Impor Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: EDIT PROFIL & PILIH AVATAR BADDIE ==================== -->
+  <div id="modal-edit-profile" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-edit-profile-title">
+    <div class="glass-card modal-card" style="max-width: 520px;">
+      <div class="auth-window-bar">
+        <span class="window-title">💅 edit_profil_lily.app</span>
+        <div class="window-dots" aria-hidden="true">
+          <span class="window-dot d1"></span>
+          <span class="window-dot d2"></span>
+          <span class="window-dot d3"></span>
+        </div>
+      </div>
+
+      <form id="form-edit-profile" class="card-pad" novalidate>
+        <h2 id="modal-edit-profile-title" class="view-heading">Edit Profil &amp; Avatar ✨</h2>
+        <p class="view-desc">Pilih salah satu dari 5 avatar Y2K baddie favoritmu. Pilihan tersimpan khusus untuk akun ini.</p>
+
+        <div id="edit-profile-alert" class="alert-box error hidden" role="alert"></div>
+
+        <div class="form-group">
+          <label class="form-label" for="edit-profile-name">Nama Tampilan</label>
+          <input id="edit-profile-name" class="form-input" type="text" maxlength="60" placeholder="Nama lengkap Anda" required />
+        </div>
+
+        <div class="form-group" style="margin-bottom: 8px;">
+          <span class="form-label">Pilih Avatar (5 Gaya Y2K)</span>
+          <div id="avatar-picker-grid" class="avatar-picker-grid" role="radiogroup" aria-label="Pilih Avatar Baddie"></div>
+        </div>
+
+        <!-- Preview Avatar Terpisah Tutor Lena -->
+        <div class="tutor-lena-bar" style="margin-top: 4px; margin-bottom: 16px;">
+          <div id="modal-tutor-lena-avatar" class="avatar-circle avatar-tutor" aria-hidden="true"></div>
+          <div class="tutor-lena-text">
+            Avatar Terpisah: Tutor Lena 🌷
+            <small>Tutor Lena memiliki avatar khusus sebagai mentor bahasa Jermanmu di Lily App.</small>
+          </div>
+        </div>
+
+        <div class="row-between" style="gap: 10px;">
+          <button type="button" id="btn-edit-profile-cancel" class="btn btn-secondary" style="flex: 1;">Batal</button>
+          <button type="submit" id="btn-edit-profile-save" class="btn btn-primary" style="flex: 1;">Simpan Profil ♡</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Container Notifikasi Toast -->
+  <div id="toast-stack" class="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    /* === SEKSI: KONFIGURASI EMAILJS === */
+    /*
+     * CATATAN KEAMANAN:
+     * Verifikasi OTP sisi-browser cocok untuk aplikasi latihan/pribadi.
+     * Untuk layanan produksi berskala publik, pembuatan & validasi OTP sebaiknya dilakukan di server (backend).
+     * DILARANG menaruh Private Key EmailJS di kode browser — hanya gunakan Public Key.
+     */
+    const EMAILJS_CONFIG = {
+      EMAILJS_PUBLIC_KEY: '8paS1VJ6gvr8RE-lJ',   // Public Key EmailJS Anda (bukan Private Key)
+      EMAILJS_SERVICE_ID: 'service_1c3s1f9',      // Service ID EmailJS Anda
+      EMAILJS_TEMPLATE_ID: 'template_ii98y0v',    // Template ID EmailJS terbaru (param: to_email, to_name, otp_code)
+    };
+
+    /* === SEKSI: ARSITEKTUR DATA TAHAP BERIKUTNYA === */
+    const DAYS = {};
+    const TRAINING_EXTRAS = {};
+    const GAME_POOLS = {};
+    const TUTOR_SCENARIOS = {};
+
+    /* === SEKSI: AVATAR BADDIE SVG, TUTOR LENA & LERNMODUS DOCK === */
+    const DEFAULT_AVATAR_ID = 'y2k-pinky';
+
+    const BADDIE_AVATARS = [
+      {
+        id: 'y2k-pinky',
+        name: 'Y2K Pinky',
+        tag: 'Bubblegum Glam',
+        buildSvg: (u) => `
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Y2K Pinky">
+            <defs>
+              <linearGradient id="${u}-bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fff0f9"/><stop offset="55%" stop-color="#ff99d6"/><stop offset="100%" stop-color="#ff5cb8"/>
+              </linearGradient>
+              <linearGradient id="${u}-hair" x1="20" y1="12" x2="100" y2="96" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ff74c6"/><stop offset="100%" stop-color="#b81b76"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="60" fill="url(#${u}-bg)"/>
+            <circle cx="24" cy="24" r="6" fill="#fff" fill-opacity="0.55"/>
+            <circle cx="96" cy="26" r="4" fill="#fff" fill-opacity="0.7"/>
+            <!-- Space buns Y2K -->
+            <circle cx="30" cy="34" r="15" fill="url(#${u}-hair)"/>
+            <circle cx="90" cy="34" r="15" fill="url(#${u}-hair)"/>
+            <path d="M26 56C26 30 40 18 60 18C80 18 94 30 94 56L98 96C84 102 36 102 22 96Z" fill="url(#${u}-hair)"/>
+            <!-- Baju kerah Y2K & choker hati -->
+            <path d="M24 118C28 94 42 88 60 88C78 88 92 94 96 118Z" fill="#ff4fa8"/>
+            <path d="M40 90C46 102 74 102 80 90" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <rect x="52" y="76" width="16" height="16" rx="7" fill="#f7cbb2"/>
+            <rect x="49" y="83" width="22" height="5" rx="2.5" fill="#3B0A2A"/>
+            <circle cx="60" cy="85.5" r="2.6" fill="#ffd6ee"/>
+            <!-- Wajah -->
+            <ellipse cx="60" cy="56" rx="24" ry="26" fill="#f9d2bc"/>
+            <ellipse cx="44" cy="62" rx="4.5" ry="2.6" fill="#ff85c0" fill-opacity="0.45"/>
+            <ellipse cx="76" cy="62" rx="4.5" ry="2.6" fill="#ff85c0" fill-opacity="0.45"/>
+            <!-- Poni sleek + jepit bintang -->
+            <path d="M36 46C42 28 78 28 84 46C74 37 46 37 36 46Z" fill="url(#${u}-hair)"/>
+            <path d="M35 39L37 43L41 44L38 46L39 50L35 48L31 50L32 46L29 44L33 43Z" fill="#fff3bd"/>
+            <!-- Kacamata Y2K pink glossy -->
+            <rect x="38" y="47" width="19" height="12" rx="6" fill="#ff5cb8" fill-opacity="0.72" stroke="#ffffff" stroke-width="2"/>
+            <rect x="63" y="47" width="19" height="12" rx="6" fill="#ff5cb8" fill-opacity="0.72" stroke="#ffffff" stroke-width="2"/>
+            <line x1="57" y1="52" x2="63" y2="52" stroke="#ffffff" stroke-width="2"/>
+            <path d="M42 50L49 50" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.85"/>
+            <path d="M67 50L74 50" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.85"/>
+            <!-- Bibir glossy -->
+            <path d="M53 68C57 72 63 72 67 68" stroke="#d91e78" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <ellipse cx="60" cy="70.5" rx="3" ry="1.1" fill="#ffffff" fill-opacity="0.75"/>
+          </svg>`,
+      },
+      {
+        id: 'butterfly-bae',
+        name: 'Butterfly Bae',
+        tag: 'Crystal Wings',
+        buildSvg: (u) => `
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Butterfly Bae">
+            <defs>
+              <linearGradient id="${u}-bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fff3bd"/><stop offset="50%" stop-color="#ffbde3"/><stop offset="100%" stop-color="#d8b4fe"/>
+              </linearGradient>
+              <linearGradient id="${u}-hair" x1="20" y1="14" x2="96" y2="104" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#4e233b"/><stop offset="100%" stop-color="#260c1b"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="60" fill="url(#${u}-bg)"/>
+            <!-- Rambut bergelombang panjang -->
+            <path d="M24 52C22 26 38 14 60 14C82 14 98 26 96 52C100 74 96 96 90 108L30 108C24 96 20 74 24 52Z" fill="url(#${u}-hair)"/>
+            <!-- Atasan Y2K lilac kerah rapi -->
+            <path d="M24 118C28 94 42 88 60 88C78 88 92 94 96 118Z" fill="#c084fc"/>
+            <path d="M44 90L60 102L76 90" stroke="#fff5fb" stroke-width="3" fill="none" stroke-linejoin="round"/>
+            <rect x="52" y="76" width="16" height="16" rx="7" fill="#d89e76"/>
+            <!-- Anting hoop perak -->
+            <circle cx="35" cy="64" r="5" fill="none" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="85" cy="64" r="5" fill="none" stroke="#ffffff" stroke-width="2"/>
+            <!-- Wajah sawo matang hangat -->
+            <ellipse cx="60" cy="56" rx="23.5" ry="25.5" fill="#dfa57d"/>
+            <ellipse cx="45" cy="62" rx="4.5" ry="2.4" fill="#ff7ab8" fill-opacity="0.38"/>
+            <ellipse cx="75" cy="62" rx="4.5" ry="2.4" fill="#ff7ab8" fill-opacity="0.38"/>
+            <!-- Belahan poni + 2 jepit kupu-kupu pastel -->
+            <path d="M36 48C40 28 56 26 60 35C64 26 80 28 84 48C74 36 64 38 60 40C56 38 46 36 36 48Z" fill="url(#${u}-hair)"/>
+            <path d="M39 36C34 31 31 37 36 40C32 42 35 46 39 42C43 46 46 42 42 40C47 37 44 31 39 36Z" fill="#ff8ed0" stroke="#ffffff" stroke-width="1"/>
+            <path d="M81 36C76 31 73 37 78 40C74 42 77 46 81 42C85 46 88 42 84 40C89 37 86 31 81 36Z" fill="#bfe8ff" stroke="#ffffff" stroke-width="1"/>
+            <!-- Mata winged eyeliner + kilau -->
+            <ellipse cx="49" cy="55" rx="4" ry="4.4" fill="#3B0A2A"/>
+            <ellipse cx="71" cy="55" rx="4" ry="4.4" fill="#3B0A2A"/>
+            <circle cx="50.5" cy="53.5" r="1.5" fill="#ffffff"/>
+            <circle cx="72.5" cy="53.5" r="1.5" fill="#ffffff"/>
+            <path d="M43 52L46 53M77 52L74 53" stroke="#3B0A2A" stroke-width="2" stroke-linecap="round"/>
+            <path d="M53 68C57 72 63 72 67 68" stroke="#c8377c" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+          </svg>`,
+      },
+      {
+        id: 'cyber-cherry',
+        name: 'Cyber Cherry',
+        tag: 'Headphone Pop',
+        buildSvg: (u) => `
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Cyber Cherry">
+            <defs>
+              <linearGradient id="${u}-bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffe0f2"/><stop offset="55%" stop-color="#ff6b9d"/><stop offset="100%" stop-color="#a21caf"/>
+              </linearGradient>
+              <linearGradient id="${u}-hp" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f9a8d4"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="60" fill="url(#${u}-bg)"/>
+            <!-- High ponytail sleek dengan highlight cherry -->
+            <path d="M50 18C68 4 98 16 96 52C94 74 86 88 80 94L70 50Z" fill="#230b1c"/>
+            <path d="M68 18C84 22 92 42 86 70" stroke="#ff3b7f" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <!-- Jaket cyber Y2K -->
+            <path d="M22 118C26 92 42 88 60 88C78 88 94 92 98 118Z" fill="#3B0A2A"/>
+            <path d="M46 89L54 118M74 89L66 118" stroke="#ff69b4" stroke-width="3"/>
+            <rect x="52" y="76" width="16" height="16" rx="7" fill="#9c6244"/>
+            <!-- Headphone Y2K glossy -->
+            <path d="M30 56C30 26 90 26 90 56" stroke="url(#${u}-hp)" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+            <rect x="24" y="46" width="11" height="22" rx="5.5" fill="#ff4d94" stroke="#ffffff" stroke-width="2"/>
+            <rect x="85" y="46" width="11" height="22" rx="5.5" fill="#ff4d94" stroke="#ffffff" stroke-width="2"/>
+            <!-- Rambut dasar & wajah cokelat kaya -->
+            <ellipse cx="60" cy="54" rx="25" ry="27" fill="#230b1c"/>
+            <ellipse cx="60" cy="57" rx="22.5" ry="24.5" fill="#a86b4c"/>
+            <path d="M38 45C46 31 74 31 82 45C72 37 48 37 38 45Z" fill="#230b1c"/>
+            <!-- Mata + senyum percaya diri -->
+            <ellipse cx="49" cy="56" rx="4" ry="4.3" fill="#230b1c"/>
+            <ellipse cx="71" cy="56" rx="4" ry="4.3" fill="#230b1c"/>
+            <circle cx="50.4" cy="54.5" r="1.5" fill="#ffffff"/>
+            <circle cx="72.4" cy="54.5" r="1.5" fill="#ffffff"/>
+            <path d="M44 50C47 48 52 48 54 50M66 50C68 48 73 48 76 50" stroke="#230b1c" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M53 69C57 73 64 73 68 68.5" stroke="#ff2f76" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <circle cx="60" cy="95" r="3" fill="#ff4d94"/>
+          </svg>`,
+      },
+      {
+        id: 'glam-lilac',
+        name: 'Glam Lilac',
+        tag: 'Pastel Bob',
+        buildSvg: (u) => `
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Glam Lilac">
+            <defs>
+              <linearGradient id="${u}-bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#f5e6ff"/><stop offset="50%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#ff99d6"/>
+              </linearGradient>
+              <linearGradient id="${u}-hair" x1="20" y1="18" x2="100" y2="92" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#7e22ce"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="60" fill="url(#${u}-bg)"/>
+            <!-- Rambut bob pastel lilac -->
+            <path d="M26 56C26 24 40 16 60 16C80 16 94 24 94 56C94 74 88 86 78 88L42 88C32 86 26 74 26 56Z" fill="url(#${u}-hair)"/>
+            <!-- Kardigan pastel + kerah mutiara -->
+            <path d="M24 118C28 94 42 88 60 88C78 88 92 94 96 118Z" fill="#f472b6"/>
+            <circle cx="48" cy="92" r="2.6" fill="#ffffff"/>
+            <circle cx="54" cy="95" r="2.6" fill="#ffffff"/>
+            <circle cx="60" cy="96" r="2.6" fill="#ffffff"/>
+            <circle cx="66" cy="95" r="2.6" fill="#ffffff"/>
+            <circle cx="72" cy="92" r="2.6" fill="#ffffff"/>
+            <rect x="52" y="76" width="16" height="16" rx="7" fill="#f4ccb5"/>
+            <!-- Wajah -->
+            <ellipse cx="60" cy="57" rx="23" ry="24.5" fill="#f7d4bf"/>
+            <ellipse cx="45" cy="63" rx="4.2" ry="2.4" fill="#ff7bc2" fill-opacity="0.45"/>
+            <ellipse cx="75" cy="63" rx="4.2" ry="2.4" fill="#ff7bc2" fill-opacity="0.45"/>
+            <!-- Poni penuh + klip hati mutiara -->
+            <path d="M36 47C38 26 82 26 84 47C72 42 48 42 36 47Z" fill="url(#${u}-hair)"/>
+            <path d="M74 36C74 33 78 33 78 36C78 33 82 33 82 36C82 39 78 42 78 42C78 42 74 39 74 36Z" fill="#fff5fb"/>
+            <!-- Mata berkilau -->
+            <ellipse cx="49" cy="56" rx="4.2" ry="4.6" fill="#3B0A2A"/>
+            <ellipse cx="71" cy="56" rx="4.2" ry="4.6" fill="#3B0A2A"/>
+            <circle cx="50.5" cy="54.2" r="1.6" fill="#ffffff"/>
+            <circle cx="72.5" cy="54.2" r="1.6" fill="#ffffff"/>
+            <circle cx="47.5" cy="57.5" r="0.9" fill="#f5d0fe"/>
+            <circle cx="69.5" cy="57.5" r="0.9" fill="#f5d0fe"/>
+            <path d="M54 68.5C57.5 72 62.5 72 66 68.5" stroke="#db2777" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          </svg>`,
+      },
+      {
+        id: 'icy-blue',
+        name: 'Icy Blue',
+        tag: 'Frosty Y2K',
+        buildSvg: (u) => `
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Icy Blue">
+            <defs>
+              <linearGradient id="${u}-bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#e0f7ff"/><stop offset="55%" stop-color="#89d8ff"/><stop offset="100%" stop-color="#ff99d6"/>
+              </linearGradient>
+              <linearGradient id="${u}-hair" x1="20" y1="14" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#bae6fd"/><stop offset="60%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#6366f1"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="60" fill="url(#${u}-bg)"/>
+            <!-- Kepang Y2K icy blue -->
+            <rect x="24" y="48" width="13" height="52" rx="6.5" fill="url(#${u}-hair)"/>
+            <rect x="83" y="48" width="13" height="52" rx="6.5" fill="url(#${u}-hair)"/>
+            <circle cx="30.5" cy="84" r="3" fill="#ff8ed0"/>
+            <circle cx="89.5" cy="84" r="3" fill="#ff8ed0"/>
+            <!-- Jaket frosty metallic -->
+            <path d="M22 118C26 93 42 88 60 88C78 88 94 93 98 118Z" fill="#38bdf8"/>
+            <path d="M40 90L60 105L80 90" stroke="#ffffff" stroke-width="3.2" fill="none"/>
+            <rect x="52" y="76" width="16" height="16" rx="7" fill="#6f412c"/>
+            <!-- Rambut atas & wajah cokelat dalam -->
+            <ellipse cx="60" cy="52" rx="26" ry="28" fill="url(#${u}-hair)"/>
+            <ellipse cx="60" cy="57" rx="22.5" ry="24.5" fill="#7c4a33"/>
+            <path d="M37 46C44 30 76 30 83 46C73 37 47 37 37 46Z" fill="url(#${u}-hair)"/>
+            <!-- Jepit kristal bintang -->
+            <path d="M60 24L62 29L67 30L63 33L64 38L60 35L56 38L57 33L53 30L58 29Z" fill="#ffffff"/>
+            <!-- Mata + glossy highlight -->
+            <ellipse cx="49" cy="56" rx="4" ry="4.3" fill="#1e0a18"/>
+            <ellipse cx="71" cy="56" rx="4" ry="4.3" fill="#1e0a18"/>
+            <circle cx="50.5" cy="54.4" r="1.5" fill="#e0f7ff"/>
+            <circle cx="72.5" cy="54.4" r="1.5" fill="#e0f7ff"/>
+            <path d="M53 69C57 72.5 63 72.5 67 69" stroke="#ff74c6" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+          </svg>`,
+      },
+    ];
+
+    /* Avatar terpisah khusus Tutor Lena (tidak termasuk dalam pilihan 5 avatar pengguna) */
+    const TUTOR_LENA_AVATAR = {
+      id: 'tutor-lena',
+      name: 'Tutor Lena',
+      buildSvg: (u) => `
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Tutor Lena">
+          <defs>
+            <linearGradient id="${u}-bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#fff5fb"/><stop offset="55%" stop-color="#ffd1ec"/><stop offset="100%" stop-color="#d8b4fe"/>
+            </linearGradient>
+            <linearGradient id="${u}-hair" x1="20" y1="16" x2="100" y2="96" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f6c77c"/><stop offset="100%" stop-color="#c4823b"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="60" fill="url(#${u}-bg)"/>
+          <!-- Rambut wavy madu rapi -->
+          <path d="M25 56C25 24 40 16 60 16C80 16 95 24 95 56C95 78 90 92 84 100L36 100C30 92 25 78 25 56Z" fill="url(#${u}-hair)"/>
+          <!-- Blazer pastel tutor & pin pita DE -->
+          <path d="M24 118C28 94 42 88 60 88C78 88 92 94 96 118Z" fill="#ec4899"/>
+          <path d="M46 89L60 112L74 89" fill="#ffffff"/>
+          <rect x="73" y="99" width="11" height="2.4" rx="1" fill="#3B0A2A"/>
+          <rect x="73" y="101.6" width="11" height="2.4" rx="1" fill="#f43f5e"/>
+          <rect x="73" y="104.2" width="11" height="2.4" rx="1" fill="#fbbf24"/>
+          <rect x="52" y="76" width="16" height="16" rx="7" fill="#f8d2bc"/>
+          <!-- Wajah ramah -->
+          <ellipse cx="60" cy="56" rx="23" ry="25" fill="#fbd8c4"/>
+          <path d="M36 46C42 28 74 26 84 46C72 36 52 37 36 46Z" fill="url(#${u}-hair)"/>
+          <!-- Kacamata bulat rose-gold -->
+          <circle cx="49" cy="56" r="8.5" fill="#ffffff" fill-opacity="0.35" stroke="#be185d" stroke-width="2"/>
+          <circle cx="71" cy="56" r="8.5" fill="#ffffff" fill-opacity="0.35" stroke="#be185d" stroke-width="2"/>
+          <line x1="57.5" y1="56" x2="62.5" y2="56" stroke="#be185d" stroke-width="2"/>
+          <circle cx="49" cy="56" r="2.8" fill="#3B0A2A"/>
+          <circle cx="71" cy="56" r="2.8" fill="#3B0A2A"/>
+          <circle cx="50" cy="54.8" r="1" fill="#ffffff"/>
+          <circle cx="72" cy="54.8" r="1" fill="#ffffff"/>
+          <!-- Senyum hangat -->
+          <path d="M52 68C56 73 64 73 68 68" stroke="#be185d" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+        </svg>`,
+    };
+
+    const LERNMODUS_DOCK_ITEMS = [
+      {
+        id: 'flashcard',
+        label: 'Flashcard',
+        gradient: 'linear-gradient(155deg, #ff99d6 0%, #e83298 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="18" height="15" rx="4" fill="#fff5fb" fill-opacity="0.82"/><rect x="10" y="10" width="18" height="15" rx="4" fill="#ffffff"/><path d="M15 16h8M15 20h5" stroke="#e83298" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+      },
+      {
+        id: 'vocabulary',
+        label: 'Vocabulary',
+        gradient: 'linear-gradient(155deg, #ffd166 0%, #f472b6 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><path d="M7 7h12a4 4 0 0 1 4 4v14H11a4 4 0 0 0-4 4V7z" fill="#ffffff"/><path d="M25 9h-2v16h2a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2z" fill="#fff5fb" fill-opacity="0.8"/><path d="M11 13h8M11 17h6" stroke="#d91e78" stroke-width="2.1" stroke-linecap="round"/></svg>`,
+      },
+      {
+        id: 'reading',
+        label: 'Reading',
+        gradient: 'linear-gradient(155deg, #a78bfa 0%, #ec4899 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><path d="M5 9c4 0 8 1.5 11 4 3-2.5 7-4 11-4v15c-4 0-8 1.2-11 3.5C13 25.2 9 24 5 24V9z" fill="#ffffff"/><line x1="16" y1="13" x2="16" y2="27" stroke="#c026d3" stroke-width="2"/></svg>`,
+      },
+      {
+        id: 'listening',
+        label: 'Listening',
+        gradient: 'linear-gradient(155deg, #7dd3fc 0%, #c084fc 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><path d="M7 18v-2a9 9 0 1 1 18 0v2" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"/><rect x="5" y="16" width="5" height="9" rx="2.5" fill="#ffffff"/><rect x="22" y="16" width="5" height="9" rx="2.5" fill="#ffffff"/></svg>`,
+      },
+      {
+        id: 'speaking',
+        label: 'Speaking',
+        gradient: 'linear-gradient(155deg, #fb7185 0%, #e83298 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><rect x="12" y="5" width="8" height="14" rx="4" fill="#ffffff"/><path d="M9 15a7 7 0 0 0 14 0M16 22v5M12 27h8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+      },
+      {
+        id: 'conversation',
+        label: 'Conversation',
+        gradient: 'linear-gradient(155deg, #f472b6 0%, #8b5cf6 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><path d="M6 9a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-7l-5 4v-4h0a4 4 0 0 1-4-4V9z" fill="#ffffff"/><circle cx="12" cy="13" r="1.6" fill="#e83298"/><circle cx="16" cy="13" r="1.6" fill="#e83298"/><circle cx="20" cy="13" r="1.6" fill="#e83298"/></svg>`,
+      },
+      {
+        id: 'grammar',
+        label: 'Grammar',
+        gradient: 'linear-gradient(155deg, #67e8f9 0%, #f472b6 100%)',
+        svg: `<svg viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="20" height="20" rx="5" fill="#ffffff"/><path d="M11 21l3.5-10h3L21 21M12.6 17.5h6.8" stroke="#c8237b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      },
+    ];
+
+    function getAvatarById(avatarId) {
+      return BADDIE_AVATARS.find((item) => item.id === avatarId) || BADDIE_AVATARS[0];
+    }
+
+    function renderAvatarInto(containerEl, svgMarkup) {
+      if (!containerEl) return;
+      containerEl.innerHTML = svgMarkup;
+    }
+
+    function getAccountAvatarId(account, userData) {
+      const candidate = (userData && userData.avatarId) || (account && account.avatarId) || DEFAULT_AVATAR_ID;
+      return getAvatarById(candidate).id;
+    }
+
+    function renderLernmodusDock() {
+      const dockEl = document.getElementById('lernmodus-dock');
+      if (!dockEl) return;
+      dockEl.textContent = '';
+
+      LERNMODUS_DOCK_ITEMS.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dock-item';
+        btn.dataset.modeId = item.id;
+        btn.setAttribute('aria-label', `${item.label} — Segera hadir`);
+
+        const iconBox = document.createElement('span');
+        iconBox.className = 'dock-icon';
+        iconBox.style.background = item.gradient;
+        iconBox.innerHTML = item.svg;
+
+        const labelEl = document.createElement('span');
+        labelEl.className = 'dock-label';
+        labelEl.textContent = item.label;
+
+        const dotEl = document.createElement('span');
+        dotEl.className = 'dock-dot';
+        dotEl.setAttribute('aria-hidden', 'true');
+
+        btn.appendChild(iconBox);
+        btn.appendChild(labelEl);
+        btn.appendChild(dotEl);
+
+        btn.addEventListener('click', () => {
+          const statusEl = document.getElementById('dock-status-pill');
+          if (statusEl) {
+            statusEl.textContent = `✨ Mode ${item.label}: Segera hadir di tahap berikutnya!`;
+          }
+          showToast(`${item.label}: Segera hadir ✨`, 'info');
+        });
+
+        btn.addEventListener('mouseenter', () => {
+          const items = Array.from(dockEl.querySelectorAll('.dock-item'));
+          const idx = items.indexOf(btn);
+          items.forEach((el, i) => {
+            el.classList.toggle('dock-neighbor', Math.abs(i - idx) === 1);
+          });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          dockEl.querySelectorAll('.dock-item.dock-neighbor').forEach((el) => el.classList.remove('dock-neighbor'));
+        });
+
+        dockEl.appendChild(btn);
+      });
+    }
+
+    let selectedDraftAvatarId = DEFAULT_AVATAR_ID;
+
+    function openEditProfileModal() {
+      const account = findAccountById(APP_STATE.currentUserId);
+      if (!account) return;
+      const userData = getUserData(account.id);
+      selectedDraftAvatarId = getAccountAvatarId(account, userData);
+
+      hideAlert('edit-profile-alert');
+      document.getElementById('edit-profile-name').value = account.name;
+      renderAvatarPickerGrid();
+      renderAvatarInto(document.getElementById('modal-tutor-lena-avatar'), TUTOR_LENA_AVATAR.buildSvg('modal-lena'));
+      document.getElementById('modal-edit-profile').classList.remove('hidden');
+    }
+
+    function closeEditProfileModal() {
+      document.getElementById('modal-edit-profile').classList.add('hidden');
+    }
+
+    function renderAvatarPickerGrid() {
+      const grid = document.getElementById('avatar-picker-grid');
+      if (!grid) return;
+      grid.textContent = '';
+
+      BADDIE_AVATARS.forEach((av, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'avatar-option' + (av.id === selectedDraftAvatarId ? ' selected' : '');
+        btn.setAttribute('role', 'radio');
+        btn.setAttribute('aria-checked', String(av.id === selectedDraftAvatarId));
+
+        const circle = document.createElement('span');
+        circle.className = 'avatar-circle';
+        circle.innerHTML = av.buildSvg(`pick-${idx}`);
+
+        const nameEl = document.createElement('span');
+        nameEl.className = 'avatar-option-name';
+        nameEl.textContent = av.name;
+
+        const tagEl = document.createElement('span');
+        tagEl.className = 'avatar-option-tag';
+        tagEl.textContent = av.tag;
+
+        btn.appendChild(circle);
+        btn.appendChild(nameEl);
+        btn.appendChild(tagEl);
+
+        btn.addEventListener('click', () => {
+          selectedDraftAvatarId = av.id;
+          renderAvatarPickerGrid();
+        });
+
+        grid.appendChild(btn);
+      });
+    }
+
+    function handleSaveProfile(event) {
+      event.preventDefault();
+      hideAlert('edit-profile-alert');
+
+      const account = findAccountById(APP_STATE.currentUserId);
+      if (!account) return;
+
+      const cleanName = sanitizeText(document.getElementById('edit-profile-name').value, 60);
+      if (cleanName.length < 2) {
+        showAlert('edit-profile-alert', 'error', 'Nama tampilan minimal 2 karakter.');
+        return;
+      }
+
+      const validAvatarId = getAvatarById(selectedDraftAvatarId).id;
+      const accounts = getAllAccounts();
+      accounts[account.id] = {
+        ...account,
+        name: cleanName,
+        avatarId: validAvatarId,
+      };
+      saveAllAccounts(accounts);
+
+      const userData = getUserData(account.id);
+      userData.avatarId = validAvatarId;
+      saveUserData(account.id, userData);
+
+      renderHomeDashboard();
+      closeEditProfileModal();
+      showToast(`Profil diperbarui! Avatar ${getAvatarById(validAvatarId).name} aktif ✨`, 'success');
+    }
+
+    /* === SEKSI: KONSTANTA & STATE APLIKASI === */
+    const STORAGE_KEYS = {
+      ACCOUNTS: 'lily_app_accounts_v1',
+      SESSION: 'lily_app_session_v1',
+      USER_DATA_PREFIX: 'lily_app_userdata_',
+      LOGIN_GUARD: 'lily_app_login_guard_v1',
+      FORGOT_GUARD: 'lily_app_forgot_guard_v1',
+      RESEND_LOG: 'lily_app_otp_resend_log_v1',
+      PENDING_OTP: 'lily_app_pending_otp_v1', // Disimpan di sessionStorage
+    };
+
+    const SECURITY_LIMITS = {
+      MIN_PASSWORD_LEN: 8,
+      PBKDF2_ITERATIONS: 120000, // Minimal 100.000 iterasi sesuai standar keamanan
+      OTP_LENGTH: 6,
+      OTP_TTL_MS: 10 * 60 * 1000, // 10 menit
+      OTP_MAX_ATTEMPTS: 5,
+      OTP_RESEND_COOLDOWN_MS: 60 * 1000, // 60 detik
+      OTP_RESEND_MAX_PER_HOUR: 3,
+      EMAILJS_TIMEOUT_MS: 10 * 1000, // 10 detik
+      LOGIN_MAX_ATTEMPTS: 5,
+      LOGIN_LOCKOUT_MS: 30 * 1000, // 30 detik
+      BACKUP_SCHEMA_VERSION: 1,
+    };
+
+    const APP_STATE = {
+      currentUserId: null,
+      activePage: 'home',
+      otpTimerInterval: null,
+      resendCooldownInterval: null,
+      loginLockoutInterval: null,
+      pendingImportPayload: null,
+      isSendingEmail: false,
+    };
+
+    /* === SEKSI: UTILITAS KEAMANAN, KRIPTOGRAFI & SANITASI === */
+
+    /** Memastikan Web Crypto API tersedia di browser */
+    function assertWebCrypto() {
+      if (!window.crypto || !window.crypto.getRandomValues || !window.crypto.subtle) {
+        throw new Error('Browser tidak mendukung Web Crypto API (gunakan HTTPS atau localhost).');
+      }
+    }
+
+    /** Membersihkan teks input dari karakter kontrol & spasi berlebih */
+    function sanitizeText(value, maxLen = 120) {
+      return String(value || '')
+        .replace(/[\u0000-\u001F\u007F<>]/g, '')
+        .trim()
+        .slice(0, maxLen);
+    }
+
+    /** Normalisasi email ke huruf kecil tanpa spasi */
+    function normalizeEmail(email) {
+      return String(email || '').trim().toLowerCase();
+    }
+
+    /** Validasi format email standar */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= 120;
+    }
+
+    /** Konversi Uint8Array ke string hex */
+    function bytesToHex(bytes) {
+      return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    /** Konversi string hex ke Uint8Array */
+    function hexToBytes(hex) {
+      if (typeof hex !== 'string' || hex.length % 2 !== 0 || !/^[0-9a-fA-F]+$/.test(hex)) {
+        return new Uint8Array(0);
+      }
+      const out = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < out.length; i++) {
+        out[i] = parseInt(hex.slice(i * 2, i * 2 + 2), 16);
+      }
+      return out;
+    }
+
+    /** Menghasilkan salt kriptografis acak (hex) */
+    function generateRandomSaltHex(byteLength = 16) {
+      assertWebCrypto();
+      const bytes = new Uint8Array(byteLength);
+      window.crypto.getRandomValues(bytes);
+      return bytesToHex(bytes);
+    }
+
+    /** Menghasilkan ID unik akun menggunakan crypto.getRandomValues */
+    function generateUserId() {
+      return 'usr_' + generateRandomSaltHex(12);
+    }
+
+    /** Menghasilkan OTP 6 digit kriptografis menggunakan crypto.getRandomValues (tanpa bias modulo) */
+    function generateSecureOtp6() {
+      assertWebCrypto();
+      const range = 1000000; // 000000 - 999999
+      const maxUint32 = 0xffffffff;
+      const limit = maxUint32 - ((maxUint32 + 1) % range);
+      const buf = new Uint32Array(1);
+      let num = 0;
+      do {
+        window.crypto.getRandomValues(buf);
+        num = buf[0];
+      } while (num > limit);
+      return String(num % range).padStart(SECURITY_LIMITS.OTP_LENGTH, '0');
+    }
+
+    /** Menghasilkan Kode Pemulihan 12 karakter acak yang mudah dibaca (tanpa 0/O/1/I) */
+    function generateRecoveryCode12() {
+      assertWebCrypto();
+      const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      const len = 12;
+      const maxByte = 256 - (256 % alphabet.length);
+      const buf = new Uint8Array(1);
+      let code = '';
+      while (code.length < len) {
+        window.crypto.getRandomValues(buf);
+        if (buf[0] < maxByte) {
+          code += alphabet[buf[0] % alphabet.length];
+        }
+      }
+      return code;
+    }
+
+    /** Format kode pemulihan XXXX-XXXX-XXXX untuk keterbacaan */
+    function formatRecoveryCode(rawCode) {
+      const clean = normalizeRecoveryCode(rawCode);
+      return clean.replace(/(.{4})(?=.)/g, '$1-');
+    }
+
+    /** Normalisasi input kode pemulihan (hapus spasi/tanda hubung, kapitalisasi) */
+    function normalizeRecoveryCode(input) {
+      return String(input || '').replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    }
+
+    /** Perbandingan string hex berwaktu konstan untuk mencegah timing leak */
+    function timingSafeEqualHex(a, b) {
+      if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) {
+        return false;
+      }
+      let diff = 0;
+      for (let i = 0; i < a.length; i++) {
+        diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+      }
+      return diff === 0;
+    }
+
+    /** Hash SHA-256 untuk OTP (kode + salt acak) */
+    async function hashOtpSha256(otpCode, saltHex) {
+      assertWebCrypto();
+      const encoder = new TextEncoder();
+      const payload = encoder.encode(`${otpCode}:${saltHex}`);
+      const digest = await window.crypto.subtle.digest('SHA-256', payload);
+      return bytesToHex(new Uint8Array(digest));
+    }
+
+    /** Hash PBKDF2 (Web Crypto, SHA-256, min. 100.000 iterasi) untuk kata sandi & kode pemulihan */
+    async function hashSecretPbkdf2(secret, saltHex, iterations = SECURITY_LIMITS.PBKDF2_ITERATIONS) {
+      assertWebCrypto();
+      const safeIterations = Math.max(100000, Number(iterations) || SECURITY_LIMITS.PBKDF2_ITERATIONS);
+      const encoder = new TextEncoder();
+      const keyMaterial = await window.crypto.subtle.importKey(
+        'raw',
+        encoder.encode(String(secret)),
+        { name: 'PBKDF2' },
+        false,
+        ['deriveBits']
+      );
+      const derivedBits = await window.crypto.subtle.deriveBits(
+        {
+          name: 'PBKDF2',
+          salt: hexToBytes(saltHex),
+          iterations: safeIterations,
+          hash: 'SHA-256',
+        },
+        keyMaterial,
+        256
+      );
+      return bytesToHex(new Uint8Array(derivedBits));
+    }
+
+    /** Menyalin teks ke clipboard dengan aman (mendukung iframe via execCommand) */
+    function copyTextToClipboard(text) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.top = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) return true;
+      } catch (err) {
+        // Lanjut fallback jika gagal
+      }
+      return false;
+    }
+
+    /* === SEKSI: PENYIMPANAN AMAN (LOCALSTORAGE & SESSIONSTORAGE) === */
+
+    function safeStorageGet(storage, key, fallback = null) {
+      try {
+        const raw = storage.getItem(key);
+        if (raw === null) return fallback;
+        return JSON.parse(raw);
+      } catch (err) {
+        return fallback;
+      }
+    }
+
+    function safeStorageSet(storage, key, value) {
+      try {
+        storage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function safeStorageRemove(storage, key) {
+      try {
+        storage.removeItem(key);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function getAllAccounts() {
+      const data = safeStorageGet(window.localStorage, STORAGE_KEYS.ACCOUNTS, {});
+      return data && typeof data === 'object' && !Array.isArray(data) ? data : {};
+    }
+
+    function saveAllAccounts(accountsObj) {
+      return safeStorageSet(window.localStorage, STORAGE_KEYS.ACCOUNTS, accountsObj);
+    }
+
+    function findAccountByEmail(email) {
+      const norm = normalizeEmail(email);
+      const accounts = getAllAccounts();
+      return Object.values(accounts).find((acc) => acc && normalizeEmail(acc.email) === norm) || null;
+    }
+
+    function findAccountById(userId) {
+      if (!userId) return null;
+      const accounts = getAllAccounts();
+      return accounts[userId] || null;
+    }
+
+    /** Membuat struktur data belajar awal yang terisolasi per user */
+    function createDefaultUserData() {
+      return {
+        avatarId: DEFAULT_AVATAR_ID,
+        level: 'A1',
+        xp: 0,
+        streakDays: 0,
+        completedDays: [],
+        missions: {},
+        scores: [],
+        quizHistory: [],
+        notebook: [],
+        updatedAt: new Date().toISOString(),
+      };
+    }
+
+    function getUserData(userId) {
+      const data = safeStorageGet(window.localStorage, STORAGE_KEYS.USER_DATA_PREFIX + userId, null);
+      if (!data || typeof data !== 'object') {
+        const fresh = createDefaultUserData();
+        saveUserData(userId, fresh);
+        return fresh;
+      }
+      return data;
+    }
+
+    function saveUserData(userId, userData) {
+      userData.updatedAt = new Date().toISOString();
+      return safeStorageSet(window.localStorage, STORAGE_KEYS.USER_DATA_PREFIX + userId, userData);
+    }
+
+    function saveActiveSession(userId) {
+      return safeStorageSet(window.localStorage, STORAGE_KEYS.SESSION, {
+        userId,
+        loggedInAt: new Date().toISOString(),
+      });
+    }
+
+    function getActiveSession() {
+      return safeStorageGet(window.localStorage, STORAGE_KEYS.SESSION, null);
+    }
+
+    function clearActiveSession() {
+      safeStorageRemove(window.localStorage, STORAGE_KEYS.SESSION);
+    }
+
+    function getPendingOtpState() {
+      return safeStorageGet(window.sessionStorage, STORAGE_KEYS.PENDING_OTP, null);
+    }
+
+    function savePendingOtpState(stateObj) {
+      return safeStorageSet(window.sessionStorage, STORAGE_KEYS.PENDING_OTP, stateObj);
+    }
+
+    function clearPendingOtpState() {
+      safeStorageRemove(window.sessionStorage, STORAGE_KEYS.PENDING_OTP);
+    }
+
+    /** Mengelola batas kirim ulang OTP maks 3 kali per jam */
+    function getResendTimestamps(email) {
+      const norm = normalizeEmail(email);
+      const allLogs = safeStorageGet(window.localStorage, STORAGE_KEYS.RESEND_LOG, {});
+      const list = Array.isArray(allLogs[norm]) ? allLogs[norm] : [];
+      const oneHourAgo = Date.now() - 60 * 60 * 1000;
+      return list.filter((ts) => typeof ts === 'number' && ts > oneHourAgo);
+    }
+
+    function recordResendTimestamp(email) {
+      const norm = normalizeEmail(email);
+      const allLogs = safeStorageGet(window.localStorage, STORAGE_KEYS.RESEND_LOG, {});
+      const recent = getResendTimestamps(norm);
+      recent.push(Date.now());
+      allLogs[norm] = recent;
+      safeStorageSet(window.localStorage, STORAGE_KEYS.RESEND_LOG, allLogs);
+    }
+
+    /** Mengelola batas percobaan gagal (5 kali -> tunggu 30 detik) */
+    function getRateGuard(storageKey) {
+      const state = safeStorageGet(window.localStorage, storageKey, { attempts: 0, lockedUntil: 0 });
+      if (!state || typeof state !== 'object') return { attempts: 0, lockedUntil: 0 };
+      return state;
+    }
+
+    function registerFailedGuardAttempt(storageKey) {
+      const guard = getRateGuard(storageKey);
+      const now = Date.now();
+      if (guard.lockedUntil > now) return guard;
+      const nextAttempts = (guard.attempts || 0) + 1;
+      if (nextAttempts >= SECURITY_LIMITS.LOGIN_MAX_ATTEMPTS) {
+        const updated = { attempts: 0, lockedUntil: now + SECURITY_LIMITS.LOGIN_LOCKOUT_MS };
+        safeStorageSet(window.localStorage, storageKey, updated);
+        return updated;
+      }
+      const updated = { attempts: nextAttempts, lockedUntil: 0 };
+      safeStorageSet(window.localStorage, storageKey, updated);
+      return updated;
+    }
+
+    function resetRateGuard(storageKey) {
+      safeStorageRemove(window.localStorage, storageKey);
+    }
+
+    /* === SEKSI: PENGIRIMAN EMAILJS DENGAN TIMEOUT 10 DETIK === */
+
+    function initEmailJsClient() {
+      try {
+        if (window.emailjs && typeof window.emailjs.init === 'function') {
+          window.emailjs.init({ publicKey: EMAILJS_CONFIG.EMAILJS_PUBLIC_KEY });
+        }
+      } catch (err) {
+        // Akan ditangani saat percobaan kirim email
+      }
+    }
+
+    function isEmailJsConfigured() {
+      const { EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = EMAILJS_CONFIG;
+      const invalidPlaceholder = (v) =>
+        !v || typeof v !== 'string' || v.trim() === '' || v.includes('ISI_DENGAN_') || v.includes('PLACEHOLDER');
+      return !invalidPlaceholder(EMAILJS_PUBLIC_KEY) && !invalidPlaceholder(EMAILJS_SERVICE_ID) && !invalidPlaceholder(EMAILJS_TEMPLATE_ID);
+    }
+
+    /** Mengirim email OTP melalui EmailJS dengan batas waktu 10 detik.
+     *  Parameter template utama: to_email, to_name, otp_code.
+     *  Juga menyertakan alias bawaan template OTP EmailJS (email, passcode, time) agar kompatibel.
+     *  PENTING: otpCode TIDAK pernah dicatat ke console atau disimpan polos.
+     */
+    async function sendOtpViaEmailJs(toEmail, toName, otpCode) {
+      if (!isEmailJsConfigured()) {
+        throw new Error('Konfigurasi EmailJS belum diisi pada blok EMAILJS_CONFIG.');
+      }
+      if (!window.emailjs || typeof window.emailjs.send !== 'function') {
+        throw new Error('SDK EmailJS gagal dimuat dari CDN. Periksa koneksi internet Anda lalu coba lagi.');
+      }
+
+      const cleanToEmail = normalizeEmail(toEmail);
+      const cleanToName = sanitizeText(toName, 60);
+      if (!isValidEmail(cleanToEmail)) {
+        throw new Error('Alamat email tujuan tidak valid.');
+      }
+
+      const expiryTimeLabel = new Date(Date.now() + SECURITY_LIMITS.OTP_TTL_MS).toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      let timerId = null;
+      const timeoutPromise = new Promise((_, reject) => {
+        timerId = window.setTimeout(() => {
+          reject(new Error('Pengiriman email melebihi batas waktu 10 detik. Silakan tekan "Coba lagi".'));
+        }, SECURITY_LIMITS.EMAILJS_TIMEOUT_MS);
+      });
+
+      try {
+        const sendPromise = window.emailjs.send(
+          EMAILJS_CONFIG.EMAILJS_SERVICE_ID,
+          EMAILJS_CONFIG.EMAILJS_TEMPLATE_ID,
+          {
+            // Parameter standar Lily App
+            to_email: cleanToEmail,
+            to_name: cleanToName,
+            otp_code: otpCode,
+            // Alias kompatibilitas template bawaan OTP EmailJS agar "To Email" tidak kosong
+            email: cleanToEmail,
+            user_email: cleanToEmail,
+            name: cleanToName,
+            passcode: otpCode,
+            time: expiryTimeLabel,
+          },
+          {
+            publicKey: EMAILJS_CONFIG.EMAILJS_PUBLIC_KEY,
+          }
+        );
+        await Promise.race([sendPromise, timeoutPromise]);
+      } catch (err) {
+        const rawMsg = err && (err.text || err.message) ? String(err.text || err.message) : 'Gagal mengirim email OTP.';
+        if (/recipients address is empty/i.test(rawMsg)) {
+          throw new Error(
+            'Alamat penerima di template EmailJS masih kosong. Buka template "' +
+              EMAILJS_CONFIG.EMAILJS_TEMPLATE_ID +
+              '" di dashboard EmailJS lalu isi kolom "To Email" dengan {{to_email}} (atau {{email}}) dan klik Save.'
+          );
+        }
+        throw new Error(rawMsg);
+      } finally {
+        if (timerId) window.clearTimeout(timerId);
+      }
+    }
+
+    /* === SEKSI: ALUR OTENTIKASI (DAFTAR, OTP, MASUK, LUPA SANDI, KELUAR) === */
+
+    /** Validasi formulir pendaftaran (dipakai UI dan selfCheck) */
+    function validateRegisterInput(name, email, password, confirmPassword) {
+      const errors = {};
+      const cleanName = sanitizeText(name, 60);
+      const cleanEmail = normalizeEmail(email);
+
+      if (cleanName.length < 2) {
+        errors.name = 'Nama minimal 2 karakter.';
+      }
+      if (!isValidEmail(cleanEmail)) {
+        errors.email = 'Format alamat email tidak valid.';
+      } else if (findAccountByEmail(cleanEmail)) {
+        errors.email = 'Email ini sudah terdaftar di perangkat ini. Silakan masuk.';
+      }
+      if (typeof password !== 'string' || password.length < SECURITY_LIMITS.MIN_PASSWORD_LEN) {
+        errors.password = `Kata sandi minimal ${SECURITY_LIMITS.MIN_PASSWORD_LEN} karakter.`;
+      }
+      if (password !== confirmPassword) {
+        errors.confirm = 'Ulangi kata sandi harus sama persis.';
+      }
+
+      return {
+        valid: Object.keys(errors).length === 0,
+        errors,
+        cleanName,
+        cleanEmail,
+      };
+    }
+
+    /** Membuat state OTP ter-hash SHA-256 (tanpa menyimpan OTP polos) lalu mengirim email */
+    async function createHashedOtpAndSend({ name, email, passwordHash, passwordSalt, isResend = false }) {
+      const otpCode = generateSecureOtp6();
+      const otpSalt = generateRandomSaltHex(16);
+      const otpHash = await hashOtpSha256(otpCode, otpSalt);
+      const now = Date.now();
+
+      const pendingObj = {
+        name,
+        email,
+        passwordHash,
+        passwordSalt,
+        pbkdf2Iterations: SECURITY_LIMITS.PBKDF2_ITERATIONS,
+        otpHash,
+        otpSalt,
+        expiresAt: now + SECURITY_LIMITS.OTP_TTL_MS,
+        attempts: 0,
+        invalidated: false,
+        lastSentAt: now,
+      };
+
+      // Kirim email dulu; hanya simpan/update cooldown bila berhasil (atau tetap simpan hash bila ini alur daftar)
+      await sendOtpViaEmailJs(email, name, otpCode);
+      savePendingOtpState(pendingObj);
+      if (isResend) {
+        recordResendTimestamp(email);
+      }
+      // Variabel lokal otpCode langsung keluar dari scope tanpa disimpan atau dilog
+    }
+
+    /** Menangani Submit Formulir Daftar */
+    async function handleRegisterSubmit(event) {
+      if (event) event.preventDefault();
+      if (APP_STATE.isSendingEmail) return;
+
+      const nameVal = document.getElementById('reg-name').value;
+      const emailVal = document.getElementById('reg-email').value;
+      const pwVal = document.getElementById('reg-password').value;
+      const confirmVal = document.getElementById('reg-password-confirm').value;
+
+      clearRegisterFieldErrors();
+      hideAlert('register-alert');
+
+      const check = validateRegisterInput(nameVal, emailVal, pwVal, confirmVal);
+      if (!check.valid) {
+        if (check.errors.name) showFieldError('err-reg-name', check.errors.name);
+        if (check.errors.email) showFieldError('err-reg-email', check.errors.email);
+        if (check.errors.password) showFieldError('err-reg-password', check.errors.password);
+        if (check.errors.confirm) showFieldError('err-reg-confirm', check.errors.confirm);
+        return;
+      }
+
+      const submitBtn = document.getElementById('btn-reg-submit');
+      APP_STATE.isSendingEmail = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⏳ Mengirim kode OTP ke email...';
+
+      try {
+        // Hash kata sandi dengan PBKDF2 sejak awal agar kata sandi polos tidak pernah tersimpan
+        const passwordSalt = generateRandomSaltHex(16);
+        const passwordHash = await hashSecretPbkdf2(pwVal, passwordSalt, SECURITY_LIMITS.PBKDF2_ITERATIONS);
+
+        await createHashedOtpAndSend({
+          name: check.cleanName,
+          email: check.cleanEmail,
+          passwordHash,
+          passwordSalt,
+          isResend: false,
+        });
+
+        // Kosongkan input sandi dari DOM setelah diproses
+        document.getElementById('reg-password').value = '';
+        document.getElementById('reg-password-confirm').value = '';
+        updatePasswordMeter('');
+
+        showToast('Kode OTP 6 digit berhasil dikirim ke email Anda! 💌', 'success');
+        openOtpVerificationView();
+      } catch (err) {
+        showAlertWithRetry(
+          'register-alert',
+          'error',
+          `Gagal mengirim kode OTP: ${err.message || 'Terjadi kendala jaringan.'}`,
+          () => handleRegisterSubmit(null)
+        );
+      } finally {
+        APP_STATE.isSendingEmail = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = '✦ Daftar & Kirim Kode OTP';
+      }
+    }
+
+    /** Membuka tampilan Verifikasi OTP 6 kotak */
+    function openOtpVerificationView() {
+      const pending = getPendingOtpState();
+      if (!pending) {
+        switchAuthView('register');
+        return;
+      }
+      switchAuthView('otp');
+      document.getElementById('otp-email-display').textContent = pending.email;
+      clearOtpInputs();
+      hideAlert('otp-alert');
+      updateOtpBadges();
+      startOtpTimers();
+      const firstBox = document.querySelector('.otp-box');
+      if (firstBox) firstBox.focus();
+    }
+
+    /** Menangani Verifikasi Kode OTP */
+    async function handleOtpVerifySubmit(event) {
+      event.preventDefault();
+      hideAlert('otp-alert');
+
+      const pending = getPendingOtpState();
+      if (!pending) {
+        showAlert('otp-alert', 'error', 'Sesi verifikasi tidak ditemukan. Silakan daftar ulang.');
+        return;
+      }
+
+      if (pending.invalidated || pending.attempts >= SECURITY_LIMITS.OTP_MAX_ATTEMPTS) {
+        showAlert('otp-alert', 'error', 'Kode OTP sudah hangus karena 5 kali salah. Silakan tekan "Kirim ulang kode".');
+        return;
+      }
+
+      if (Date.now() > pending.expiresAt) {
+        pending.invalidated = true;
+        pending.otpHash = '';
+        savePendingOtpState(pending);
+        updateOtpBadges();
+        showAlert('otp-alert', 'error', 'Kode OTP telah kedaluwarsa (melebihi 10 menit). Silakan kirim ulang kode.');
+        return;
+      }
+
+      const enteredCode = getOtpInputString();
+      if (!/^\d{6}$/.test(enteredCode)) {
+        showAlert('otp-alert', 'error', 'Masukkan lengkap 6 digit angka kode OTP.');
+        return;
+      }
+
+      const verifyBtn = document.getElementById('btn-otp-verify');
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = '⏳ Memverifikasi...';
+
+      try {
+        const enteredHash = await hashOtpSha256(enteredCode, pending.otpSalt);
+        const isMatch = timingSafeEqualHex(enteredHash, pending.otpHash);
+
+        if (!isMatch) {
+          pending.attempts = (pending.attempts || 0) + 1;
+          const remaining = Math.max(0, SECURITY_LIMITS.OTP_MAX_ATTEMPTS - pending.attempts);
+          if (remaining === 0) {
+            pending.invalidated = true;
+            pending.otpHash = '';
+          }
+          savePendingOtpState(pending);
+          clearOtpInputs();
+          updateOtpBadges();
+
+          if (remaining === 0) {
+            showAlert('otp-alert', 'error', 'Batas 5 percobaan tercapai. Kode OTP hangus — silakan tekan "Kirim ulang kode".');
+          } else {
+            showAlert('otp-alert', 'error', `Kode OTP salah. Sisa percobaan: ${remaining} kali.`);
+          }
+          return;
+        }
+
+        // OTP BENAR! Buat akun permanen verified:true + Kode Pemulihan 12 karakter (PBKDF2)
+        const recoveryCodePlain = generateRecoveryCode12();
+        const recoverySalt = generateRandomSaltHex(16);
+        const recoveryHash = await hashSecretPbkdf2(
+          normalizeRecoveryCode(recoveryCodePlain),
+          recoverySalt,
+          SECURITY_LIMITS.PBKDF2_ITERATIONS
+        );
+
+        const userId = generateUserId();
+        const newAccount = {
+          id: userId,
+          name: pending.name,
+          email: pending.email,
+          verified: true,
+          passwordHash: pending.passwordHash,
+          passwordSalt: pending.passwordSalt,
+          recoveryHash,
+          recoverySalt,
+          pbkdf2Iterations: pending.pbkdf2Iterations || SECURITY_LIMITS.PBKDF2_ITERATIONS,
+          createdAt: new Date().toISOString(),
+        };
+
+        const accounts = getAllAccounts();
+        accounts[userId] = newAccount;
+        saveAllAccounts(accounts);
+        saveUserData(userId, createDefaultUserData());
+
+        // Hapus seluruh data OTP dari sessionStorage segera
+        clearPendingOtpState();
+        clearOtpInputs();
+        stopOtpTimers();
+
+        // Simpan sesi aktif & masuk ke Home
+        saveActiveSession(userId);
+        APP_STATE.currentUserId = userId;
+        enterAppShell();
+        showToast('Verifikasi berhasil! Akun Lily App Anda aktif permanen ✨', 'success');
+
+        // Tampilkan Kode Pemulihan SEKALI SAJA
+        openRecoveryCodeModal(recoveryCodePlain);
+      } catch (err) {
+        showAlert('otp-alert', 'error', `Gagal memverifikasi kode: ${err.message || 'Kesalahan sistem.'}`);
+      } finally {
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = '✓ Verifikasi & Aktifkan Akun';
+      }
+    }
+
+    /** Menangani Kirim Ulang Kode OTP (jeda 60 detik, maks 3 kali per jam) */
+    async function handleOtpResend() {
+      if (APP_STATE.isSendingEmail) return;
+      hideAlert('otp-alert');
+
+      const pending = getPendingOtpState();
+      if (!pending) {
+        switchAuthView('register');
+        return;
+      }
+
+      const elapsed = Date.now() - (pending.lastSentAt || 0);
+      if (elapsed < SECURITY_LIMITS.OTP_RESEND_COOLDOWN_MS) {
+        const waitSec = Math.ceil((SECURITY_LIMITS.OTP_RESEND_COOLDOWN_MS - elapsed) / 1000);
+        showAlert('otp-alert', 'warn', `Mohon tunggu ${waitSec} detik sebelum mengirim ulang kode.`);
+        return;
+      }
+
+      const recentResends = getResendTimestamps(pending.email);
+      if (recentResends.length >= SECURITY_LIMITS.OTP_RESEND_MAX_PER_HOUR) {
+        showAlert('otp-alert', 'error', 'Batas kirim ulang kode (3 kali per jam) tercapai. Silakan coba lagi nanti.');
+        updateOtpBadges();
+        return;
+      }
+
+      const resendBtn = document.getElementById('btn-otp-resend');
+      APP_STATE.isSendingEmail = true;
+      resendBtn.disabled = true;
+      resendBtn.textContent = '⏳ Mengirim ulang...';
+
+      try {
+        await createHashedOtpAndSend({
+          name: pending.name,
+          email: pending.email,
+          passwordHash: pending.passwordHash,
+          passwordSalt: pending.passwordSalt,
+          isResend: true,
+        });
+        clearOtpInputs();
+        updateOtpBadges();
+        startOtpTimers();
+        showAlert('otp-alert', 'success', 'Kode OTP baru telah dikirim ke email Anda. Kode lama tidak berlaku lagi.');
+        showToast('Kode OTP baru terkirim! 💌', 'success');
+      } catch (err) {
+        showAlertWithRetry(
+          'otp-alert',
+          'error',
+          `Gagal mengirim ulang kode OTP: ${err.message || 'Gangguan koneksi.'}`,
+          () => handleOtpResend()
+        );
+      } finally {
+        APP_STATE.isSendingEmail = false;
+        updateOtpResendButtonState();
+      }
+    }
+
+    /** Ganti email dari layar OTP */
+    function handleOtpChangeEmail() {
+      const pending = getPendingOtpState();
+      const prevName = pending ? pending.name : '';
+      clearPendingOtpState();
+      clearOtpInputs();
+      stopOtpTimers();
+      switchAuthView('register');
+      if (prevName) {
+        document.getElementById('reg-name').value = prevName;
+      }
+      document.getElementById('reg-email').focus();
+    }
+
+    /** Menangani Masuk (Hanya Email + Kata Sandi, TIDAK PERNAH minta OTP lagi) */
+    async function handleLoginSubmit(event) {
+      event.preventDefault();
+      hideAlert('login-alert');
+
+      const guard = getRateGuard(STORAGE_KEYS.LOGIN_GUARD);
+      if (guard.lockedUntil > Date.now()) {
+        startLoginLockoutCountdown();
+        return;
+      }
+
+      const email = normalizeEmail(document.getElementById('login-email').value);
+      const password = document.getElementById('login-password').value;
+
+      if (!email || !password) {
+        showAlert('login-alert', 'error', 'Email atau kata sandi salah.');
+        return;
+      }
+
+      const loginBtn = document.getElementById('btn-login-submit');
+      loginBtn.disabled = true;
+      loginBtn.textContent = '⏳ Memeriksa...';
+
+      try {
+        const account = findAccountByEmail(email);
+        let isValid = false;
+
+        if (account && account.verified === true && account.passwordHash && account.passwordSalt) {
+          const candidateHash = await hashSecretPbkdf2(
+            password,
+            account.passwordSalt,
+            account.pbkdf2Iterations || SECURITY_LIMITS.PBKDF2_ITERATIONS
+          );
+          isValid = timingSafeEqualHex(candidateHash, account.passwordHash);
+        } else {
+          // Jalankan hash dummy agar waktu respons konsisten
+          await hashSecretPbkdf2(password, generateRandomSaltHex(16), SECURITY_LIMITS.PBKDF2_ITERATIONS);
+        }
+
+        if (!isValid) {
+          const updatedGuard = registerFailedGuardAttempt(STORAGE_KEYS.LOGIN_GUARD);
+          if (updatedGuard.lockedUntil > Date.now()) {
+            startLoginLockoutCountdown();
+          } else {
+            const left = SECURITY_LIMITS.LOGIN_MAX_ATTEMPTS - updatedGuard.attempts;
+            showAlert('login-alert', 'error', `Email atau kata sandi salah. (Sisa percobaan: ${left})`);
+          }
+          return;
+        }
+
+        // Login berhasil tanpa OTP
+        resetRateGuard(STORAGE_KEYS.LOGIN_GUARD);
+        document.getElementById('login-password').value = '';
+        saveActiveSession(account.id);
+        APP_STATE.currentUserId = account.id;
+        enterAppShell();
+        showToast(`Selamat datang kembali, ${account.name}! 🌸`, 'success');
+      } catch (err) {
+        showAlert('login-alert', 'error', 'Gagal memproses masuk. Coba lagi.');
+      } finally {
+        if (getRateGuard(STORAGE_KEYS.LOGIN_GUARD).lockedUntil <= Date.now()) {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Masuk ke Lily App ♡';
+        }
+      }
+    }
+
+    /** Menangani Lupa Kata Sandi dengan Kode Pemulihan 12 karakter */
+    async function handleForgotSubmit(event) {
+      event.preventDefault();
+      hideAlert('forgot-alert');
+
+      const guard = getRateGuard(STORAGE_KEYS.FORGOT_GUARD);
+      if (guard.lockedUntil > Date.now()) {
+        const waitSec = Math.ceil((guard.lockedUntil - Date.now()) / 1000);
+        showAlert('forgot-alert', 'error', `Terlalu banyak percobaan gagal. Mohon tunggu ${waitSec} detik.`);
+        return;
+      }
+
+      const email = normalizeEmail(document.getElementById('forgot-email').value);
+      const codeNorm = normalizeRecoveryCode(document.getElementById('forgot-code').value);
+      const newPw = document.getElementById('forgot-new-pw').value;
+      const confirmPw = document.getElementById('forgot-confirm-pw').value;
+
+      if (!isValidEmail(email) || codeNorm.length !== 12) {
+        showAlert('forgot-alert', 'error', 'Masukkan email valid dan Kode Pemulihan lengkap 12 karakter.');
+        return;
+      }
+      if (newPw.length < SECURITY_LIMITS.MIN_PASSWORD_LEN) {
+        showAlert('forgot-alert', 'error', `Kata sandi baru minimal ${SECURITY_LIMITS.MIN_PASSWORD_LEN} karakter.`);
+        return;
+      }
+      if (newPw !== confirmPw) {
+        showAlert('forgot-alert', 'error', 'Ulangi kata sandi baru tidak cocok.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-forgot-submit');
+      btn.disabled = true;
+      btn.textContent = '⏳ Memverifikasi kode...';
+
+      try {
+        const account = findAccountByEmail(email);
+        let match = false;
+
+        if (account && account.verified === true && account.recoveryHash && account.recoverySalt) {
+          const checkHash = await hashSecretPbkdf2(
+            codeNorm,
+            account.recoverySalt,
+            account.pbkdf2Iterations || SECURITY_LIMITS.PBKDF2_ITERATIONS
+          );
+          match = timingSafeEqualHex(checkHash, account.recoveryHash);
+        } else {
+          await hashSecretPbkdf2(codeNorm, generateRandomSaltHex(16), SECURITY_LIMITS.PBKDF2_ITERATIONS);
+        }
+
+        if (!match) {
+          const updatedGuard = registerFailedGuardAttempt(STORAGE_KEYS.FORGOT_GUARD);
+          if (updatedGuard.lockedUntil > Date.now()) {
+            showAlert('forgot-alert', 'error', 'Terlalu banyak percobaan gagal. Silakan tunggu 30 detik.');
+          } else {
+            showAlert('forgot-alert', 'error', 'Email atau Kode Pemulihan tidak cocok.');
+          }
+          return;
+        }
+
+        // Perbarui kata sandi dengan salt acak baru (PBKDF2 >= 100.000 iterasi)
+        const newSalt = generateRandomSaltHex(16);
+        const newHash = await hashSecretPbkdf2(newPw, newSalt, SECURITY_LIMITS.PBKDF2_ITERATIONS);
+
+        const accounts = getAllAccounts();
+        accounts[account.id] = {
+          ...account,
+          passwordSalt: newSalt,
+          passwordHash: newHash,
+          pbkdf2Iterations: SECURITY_LIMITS.PBKDF2_ITERATIONS,
+          passwordUpdatedAt: new Date().toISOString(),
+        };
+        saveAllAccounts(accounts);
+        resetRateGuard(STORAGE_KEYS.FORGOT_GUARD);
+
+        // Bersihkan form & kembali ke Masuk
+        document.getElementById('view-forgot').reset();
+        switchAuthView('login');
+        document.getElementById('login-email').value = email;
+        showAlert('login-alert', 'success', 'Kata sandi berhasil diperbarui! Silakan masuk dengan kata sandi baru.');
+        showToast('Kata sandi baru tersimpan! 🔑', 'success');
+      } catch (err) {
+        showAlert('forgot-alert', 'error', 'Gagal memperbarui kata sandi.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Simpan Kata Sandi Baru ✦';
+      }
+    }
+
+    /** Menangani Keluar (Logout) */
+    function handleLogout() {
+      clearActiveSession();
+      APP_STATE.currentUserId = null;
+      document.getElementById('main-shell').classList.add('hidden');
+      document.getElementById('auth-shell').classList.remove('hidden');
+      switchAuthView('login');
+      showToast('Anda telah keluar dari Lily App. Bis bald! 👋', 'success');
+    }
+
+    /** Memulihkan sesi dari localStorage saat refresh/buka ulang */
+    function restoreSession() {
+      const session = getActiveSession();
+      if (session && session.userId) {
+        const acc = findAccountById(session.userId);
+        if (acc && acc.verified === true) {
+          APP_STATE.currentUserId = acc.id;
+          enterAppShell();
+          return true;
+        }
+        clearActiveSession();
+      }
+      // Jika ada sesi OTP tertunda di sessionStorage, tampilkan kembali layar OTP
+      const pending = getPendingOtpState();
+      if (pending && pending.email) {
+        openOtpVerificationView();
+      } else {
+        switchAuthView('login');
+      }
+      return false;
+    }
+
+    /* === SEKSI: BACKUP & IMPOR JSON === */
+
+    /** Mengunduh Backup Akun & Progres (JSON) untuk pengguna aktif */
+    function handleExportBackup() {
+      const account = findAccountById(APP_STATE.currentUserId);
+      if (!account) {
+        showToast('Tidak ada akun aktif untuk di-backup.', 'error');
+        return;
+      }
+
+      const userData = getUserData(account.id);
+      const payload = {
+        app: 'Lily App',
+        schemaVersion: SECURITY_LIMITS.BACKUP_SCHEMA_VERSION,
+        exportedAt: new Date().toISOString(),
+        account,
+        userData,
+      };
+
+      try {
+        const jsonStr = JSON.stringify(payload, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const safeSlug = account.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'akun';
+        const dateStamp = new Date().toISOString().slice(0, 10);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `lily-app-backup-${safeSlug}-${dateStamp}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('File backup akun & progres berhasil diunduh! 💾', 'success');
+      } catch (err) {
+        showToast('Gagal membuat file backup JSON.', 'error');
+      }
+    }
+
+    /** Validasi struktur file JSON Backup sebelum konfirmasi impor */
+    function validateBackupPayload(parsed) {
+      if (!parsed || typeof parsed !== 'object') {
+        return { valid: false, error: 'Format JSON tidak valid.' };
+      }
+      if (parsed.app !== 'Lily App' || parsed.schemaVersion !== SECURITY_LIMITS.BACKUP_SCHEMA_VERSION) {
+        return { valid: false, error: 'File bukan backup resmi Lily App versi ini.' };
+      }
+      const acc = parsed.account;
+      if (!acc || typeof acc !== 'object') {
+        return { valid: false, error: 'Data akun tidak ditemukan dalam file backup.' };
+      }
+      const requiredStrings = ['id', 'name', 'email', 'passwordHash', 'passwordSalt', 'recoveryHash', 'recoverySalt'];
+      for (const field of requiredStrings) {
+        if (typeof acc[field] !== 'string' || acc[field].trim() === '') {
+          return { valid: false, error: `Kolom wajib "${field}" hilang atau rusak.` };
+        }
+      }
+      if (acc.verified !== true) {
+        return { valid: false, error: 'Hanya akun terverifikasi yang dapat diimpor.' };
+      }
+      if (!isValidEmail(normalizeEmail(acc.email))) {
+        return { valid: false, error: 'Email pada file backup tidak valid.' };
+      }
+      if (!parsed.userData || typeof parsed.userData !== 'object' || Array.isArray(parsed.userData)) {
+        return { valid: false, error: 'Struktur progres belajar pada backup tidak valid.' };
+      }
+      return { valid: true };
+    }
+
+    /** Membaca file backup yang dipilih lalu membuka Modal Konfirmasi */
+    function handleImportFileSelected(event) {
+      const file = event.target.files && event.target.files[0];
+      event.target.value = ''; // Reset input agar bisa pilih file sama lagi
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        showToast('Ukuran file backup terlalu besar (maks. 2 MB).', 'error');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(String(reader.result || ''));
+          const check = validateBackupPayload(parsed);
+          if (!check.valid) {
+            showToast(`Impor ditolak: ${check.error}`, 'error');
+            return;
+          }
+          openImportConfirmModal(parsed);
+        } catch (err) {
+          showToast('File bukan JSON yang valid atau rusak.', 'error');
+        }
+      };
+      reader.onerror = () => {
+        showToast('Gagal membaca file backup.', 'error');
+      };
+      reader.readAsText(file);
+    }
+
+    function openImportConfirmModal(payload) {
+      APP_STATE.pendingImportPayload = payload;
+      const cleanEmail = normalizeEmail(payload.account.email);
+      const existing = findAccountByEmail(cleanEmail);
+
+      document.getElementById('import-preview-name').textContent = sanitizeText(payload.account.name, 60);
+      document.getElementById('import-preview-email').textContent = cleanEmail;
+      document.getElementById('import-preview-date').textContent = payload.exportedAt
+        ? new Date(payload.exportedAt).toLocaleString('id-ID')
+        : '-';
+
+      const warnBox = document.getElementById('import-warning-box');
+      if (existing) {
+        document.getElementById('import-preview-action').textContent = 'Timpa data akun & progres yang sudah ada';
+        warnBox.textContent = '⚠️ Akun dengan email ini sudah ada di browser ini. Melanjutkan impor akan menggantikan data progres & kredensial akun tersebut dengan isi file backup.';
+        warnBox.classList.remove('hidden');
+      } else {
+        document.getElementById('import-preview-action').textContent = 'Tambahkan sebagai akun baru di browser';
+        warnBox.classList.add('hidden');
+      }
+
+      document.getElementById('modal-import').classList.remove('hidden');
+    }
+
+    function closeImportConfirmModal() {
+      APP_STATE.pendingImportPayload = null;
+      document.getElementById('modal-import').classList.add('hidden');
+    }
+
+    function confirmImportBackup() {
+      const payload = APP_STATE.pendingImportPayload;
+      if (!payload) return;
+
+      try {
+        const cleanEmail = normalizeEmail(payload.account.email);
+        const existing = findAccountByEmail(cleanEmail);
+        const targetId = existing ? existing.id : sanitizeText(payload.account.id, 60);
+
+        const accounts = getAllAccounts();
+        accounts[targetId] = {
+          id: targetId,
+          name: sanitizeText(payload.account.name, 60),
+          email: cleanEmail,
+          verified: true,
+          passwordHash: payload.account.passwordHash,
+          passwordSalt: payload.account.passwordSalt,
+          recoveryHash: payload.account.recoveryHash,
+          recoverySalt: payload.account.recoverySalt,
+          pbkdf2Iterations: Math.max(100000, Number(payload.account.pbkdf2Iterations) || SECURITY_LIMITS.PBKDF2_ITERATIONS),
+          createdAt: payload.account.createdAt || new Date().toISOString(),
+        };
+
+        saveAllAccounts(accounts);
+        saveUserData(targetId, {
+          ...createDefaultUserData(),
+          ...payload.userData,
+        });
+
+        // Jika akun yang ditimpa adalah akun aktif, segarkan tampilan Home
+        if (APP_STATE.currentUserId === targetId) {
+          renderHomeDashboard();
+        } else {
+          renderHomeDashboard();
+        }
+
+        closeImportConfirmModal();
+        showToast('Backup akun & progres berhasil diimpor! ✨', 'success');
+      } catch (err) {
+        showToast('Terjadi kesalahan saat menyimpan data impor.', 'error');
+      }
+    }
+
+    /* === SEKSI: RENDER UI, NAVIGASI & MODAL === */
+
+    function showToast(message, type = 'info') {
+      const stack = document.getElementById('toast-stack');
+      const item = document.createElement('div');
+      item.className = `toast-item ${type}`;
+      const icon = type === 'error' ? '⚠️' : type === 'success' ? '✨' : '🎀';
+      const iconSpan = document.createElement('span');
+      iconSpan.textContent = icon;
+      const msgSpan = document.createElement('span');
+      msgSpan.textContent = message;
+      item.appendChild(iconSpan);
+      item.appendChild(msgSpan);
+      stack.appendChild(item);
+
+      window.setTimeout(() => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(8px)';
+        item.style.transition = 'all 0.25s ease';
+        window.setTimeout(() => item.remove(), 260);
+      }, 3800);
+    }
+
+    function showAlert(id, type, message) {
+      const box = document.getElementById(id);
+      if (!box) return;
+      box.className = `alert-box ${type}`;
+      box.textContent = message;
+    }
+
+    function showAlertWithRetry(id, type, message, retryFn) {
+      const box = document.getElementById(id);
+      if (!box) return;
+      box.className = `alert-box ${type}`;
+      box.textContent = '';
+
+      const textEl = document.createElement('span');
+      textEl.textContent = message;
+      const retryBtn = document.createElement('button');
+      retryBtn.type = 'button';
+      retryBtn.className = 'btn btn-secondary btn-sm';
+      retryBtn.style.alignSelf = 'flex-start';
+      retryBtn.textContent = '↻ Coba lagi';
+      retryBtn.addEventListener('click', retryFn);
+
+      box.appendChild(textEl);
+      box.appendChild(retryBtn);
+    }
+
+    function hideAlert(id) {
+      const box = document.getElementById(id);
+      if (!box) return;
+      box.classList.add('hidden');
+      box.textContent = '';
+    }
+
+    function showFieldError(id, message) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = message;
+      el.classList.remove('hidden');
+    }
+
+    function clearRegisterFieldErrors() {
+      ['err-reg-name', 'err-reg-email', 'err-reg-password', 'err-reg-confirm'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.textContent = '';
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    /** Berpindah antar layar di dalam Shell Otentikasi */
+    function switchAuthView(viewName) {
+      const views = {
+        login: document.getElementById('view-login'),
+        register: document.getElementById('view-register'),
+        otp: document.getElementById('view-otp'),
+        forgot: document.getElementById('view-forgot'),
+      };
+      Object.entries(views).forEach(([key, el]) => {
+        if (el) el.classList.toggle('hidden', key !== viewName);
+      });
+
+      const tabsWrap = document.getElementById('auth-tabs');
+      const showTabs = viewName === 'login' || viewName === 'register';
+      tabsWrap.classList.toggle('hidden', !showTabs);
+
+      document.getElementById('tab-btn-login').classList.toggle('active', viewName === 'login');
+      document.getElementById('tab-btn-login').setAttribute('aria-selected', String(viewName === 'login'));
+      document.getElementById('tab-btn-register').classList.toggle('active', viewName === 'register');
+      document.getElementById('tab-btn-register').setAttribute('aria-selected', String(viewName === 'register'));
+
+      const titles = {
+        login: '🎀 lily_app_masuk.exe',
+        register: '✿ lily_app_daftar.exe',
+        otp: '💌 verifikasi_otp_sekali.exe',
+        forgot: '🔑 pemulihan_sandi.exe',
+      };
+      document.getElementById('auth-window-title').textContent = titles[viewName] || '🎀 lily_app.exe';
+
+      if (viewName === 'login') {
+        startLoginLockoutCountdown();
+      }
+    }
+
+    /** Evaluasi kekuatan kata sandi secara visual */
+    function updatePasswordMeter(password) {
+      const bars = [
+        document.getElementById('pw-bar-1'),
+        document.getElementById('pw-bar-2'),
+        document.getElementById('pw-bar-3'),
+      ];
+      const hint = document.getElementById('reg-pw-hint');
+      bars.forEach((b) => (b.className = 'pw-bar'));
+
+      if (!password) {
+        hint.textContent = 'Minimal 8 karakter (disarankan huruf + angka).';
+        return;
+      }
+
+      let score = 0;
+      if (password.length >= 8) score++;
+      if (/[a-zA-Z]/.test(password) && /\d/.test(password)) score++;
+      if (password.length >= 10 && /[^a-zA-Z0-9]/.test(password)) score++;
+
+      if (score <= 1) {
+        bars[0].classList.add('weak');
+        hint.textContent = password.length < 8 ? 'Terlalu pendek (minimal 8 karakter).' : 'Kekuatan sandi: Lemah.';
+      } else if (score === 2) {
+        bars[0].classList.add('medium');
+        bars[1].classList.add('medium');
+        hint.textContent = 'Kekuatan sandi: Cukup kuat.';
+      } else {
+        bars[0].classList.add('strong');
+        bars[1].classList.add('strong');
+        bars[2].classList.add('strong');
+        hint.textContent = 'Kekuatan sandi: Sangat kuat ✦';
+      }
+    }
+
+    /** Utilitas 6 kotak OTP */
+    function getOtpBoxes() {
+      return Array.from(document.querySelectorAll('.otp-box'));
+    }
+
+    function getOtpInputString() {
+      return getOtpBoxes().map((box) => box.value.replace(/\D/g, '')).join('');
+    }
+
+    function clearOtpInputs() {
+      getOtpBoxes().forEach((box) => {
+        box.value = '';
+      });
+    }
+
+    function bindOtpBoxes() {
+      const boxes = getOtpBoxes();
+      boxes.forEach((box, idx) => {
+        box.addEventListener('input', (e) => {
+          const digits = e.target.value.replace(/\D/g, '');
+          if (!digits) {
+            e.target.value = '';
+            return;
+          }
+          if (digits.length > 1) {
+            // Pengguna mengetik/autofill lebih dari 1 digit
+            fillOtpFromIndex(idx, digits);
+            return;
+          }
+          e.target.value = digits[0];
+          if (idx < boxes.length - 1) {
+            boxes[idx + 1].focus();
+          }
+        });
+
+        box.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !box.value && idx > 0) {
+            boxes[idx - 1].value = '';
+            boxes[idx - 1].focus();
+          } else if (e.key === 'ArrowLeft' && idx > 0) {
+            boxes[idx - 1].focus();
+          } else if (e.key === 'ArrowRight' && idx < boxes.length - 1) {
+            boxes[idx + 1].focus();
+          }
+        });
+
+        box.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const pasted = (e.clipboardData || window.clipboardData).getData('text') || '';
+          const digits = pasted.replace(/\D/g, '').slice(0, 6);
+          if (digits) {
+            fillOtpFromIndex(0, digits);
+          }
+        });
+      });
+    }
+
+    function fillOtpFromIndex(startIdx, digits) {
+      const boxes = getOtpBoxes();
+      let cursor = startIdx;
+      for (let i = 0; i < digits.length && cursor < boxes.length; i++, cursor++) {
+        boxes[cursor].value = digits[i];
+      }
+      const focusIdx = Math.min(cursor, boxes.length - 1);
+      boxes[focusIdx].focus();
+    }
+
+    function updateOtpBadges() {
+      const pending = getPendingOtpState();
+      if (!pending) return;
+
+      const remainingAttempts = Math.max(0, SECURITY_LIMITS.OTP_MAX_ATTEMPTS - (pending.attempts || 0));
+      document.getElementById('otp-attempts-badge').textContent = pending.invalidated
+        ? 'Kode hangus'
+        : `Sisa percobaan: ${remainingAttempts}/${SECURITY_LIMITS.OTP_MAX_ATTEMPTS}`;
+
+      const usedResends = getResendTimestamps(pending.email).length;
+      const leftResends = Math.max(0, SECURITY_LIMITS.OTP_RESEND_MAX_PER_HOUR - usedResends);
+      document.getElementById('otp-quota-hint').textContent =
+        `Sisa kirim ulang: ${leftResends}/${SECURITY_LIMITS.OTP_RESEND_MAX_PER_HOUR} dalam 1 jam terakhir.`;
+    }
+
+    function updateOtpResendButtonState() {
+      const btn = document.getElementById('btn-otp-resend');
+      const pending = getPendingOtpState();
+      if (!pending || !btn) return;
+
+      const usedResends = getResendTimestamps(pending.email).length;
+      if (usedResends >= SECURITY_LIMITS.OTP_RESEND_MAX_PER_HOUR) {
+        btn.disabled = true;
+        btn.textContent = 'Batas 3x/jam tercapai';
+        return;
+      }
+
+      const elapsed = Date.now() - (pending.lastSentAt || 0);
+      const remainSec = Math.ceil((SECURITY_LIMITS.OTP_RESEND_COOLDOWN_MS - elapsed) / 1000);
+      if (remainSec > 0) {
+        btn.disabled = true;
+        btn.textContent = `↻ Kirim ulang (${remainSec}d)`;
+      } else {
+        btn.disabled = APP_STATE.isSendingEmail;
+        btn.textContent = '↻ Kirim ulang kode';
+      }
+    }
+
+    function startOtpTimers() {
+      stopOtpTimers();
+      const tick = () => {
+        const pending = getPendingOtpState();
+        if (!pending) {
+          stopOtpTimers();
+          return;
+        }
+        const diffMs = Math.max(0, pending.expiresAt - Date.now());
+        const totalSec = Math.ceil(diffMs / 1000);
+        const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
+        const ss = String(totalSec % 60).padStart(2, '0');
+        document.getElementById('otp-timer-badge').textContent =
+          totalSec > 0 ? `⏳ Berlaku ${mm}:${ss}` : '⏳ Kedaluwarsa';
+
+        updateOtpResendButtonState();
+      };
+      tick();
+      APP_STATE.otpTimerInterval = window.setInterval(tick, 1000);
+    }
+
+    function stopOtpTimers() {
+      if (APP_STATE.otpTimerInterval) {
+        window.clearInterval(APP_STATE.otpTimerInterval);
+        APP_STATE.otpTimerInterval = null;
+      }
+    }
+
+    /** Hitung mundur lockout login 30 detik setelah 5 kali salah */
+    function startLoginLockoutCountdown() {
+      if (APP_STATE.loginLockoutInterval) {
+        window.clearInterval(APP_STATE.loginLockoutInterval);
+        APP_STATE.loginLockoutInterval = null;
+      }
+
+      const update = () => {
+        const guard = getRateGuard(STORAGE_KEYS.LOGIN_GUARD);
+        const remainMs = guard.lockedUntil - Date.now();
+        const btn = document.getElementById('btn-login-submit');
+
+        if (remainMs > 0) {
+          const sec = Math.ceil(remainMs / 1000);
+          btn.disabled = true;
+          btn.textContent = `Tunggu ${sec} detik...`;
+          showAlert('login-alert', 'error', `Terlalu banyak percobaan gagal (5 kali). Mohon tunggu ${sec} detik.`);
+        } else {
+          if (APP_STATE.loginLockoutInterval) {
+            window.clearInterval(APP_STATE.loginLockoutInterval);
+            APP_STATE.loginLockoutInterval = null;
+          }
+          btn.disabled = false;
+          btn.textContent = 'Masuk ke Lily App ♡';
+        }
+      };
+
+      if (getRateGuard(STORAGE_KEYS.LOGIN_GUARD).lockedUntil > Date.now()) {
+        update();
+        APP_STATE.loginLockoutInterval = window.setInterval(update, 500);
+      }
+    }
+
+    /** Masuk ke Shell Aplikasi Utama (Hanya terbuka setelah akun verified masuk) */
+    function enterAppShell() {
+      document.getElementById('auth-shell').classList.add('hidden');
+      document.getElementById('main-shell').classList.remove('hidden');
+      renderHomeDashboard();
+      switchAppPage('home');
+    }
+
+    function renderHomeDashboard() {
+      const account = findAccountById(APP_STATE.currentUserId);
+      if (!account) return;
+      const userData = getUserData(account.id);
+      const totalAccounts = Object.keys(getAllAccounts()).length;
+      const activeAvatar = getAvatarById(getAccountAvatarId(account, userData));
+
+      document.getElementById('topbar-user-name').textContent = account.name;
+      document.getElementById('home-user-name').textContent = account.name;
+      document.getElementById('home-avatar-label').textContent = `✨ ${activeAvatar.name}`;
+      renderAvatarInto(document.getElementById('topbar-user-avatar'), activeAvatar.buildSvg('nav-av'));
+      renderAvatarInto(document.getElementById('home-user-avatar'), activeAvatar.buildSvg('home-av'));
+      renderAvatarInto(document.getElementById('tutor-lena-avatar'), TUTOR_LENA_AVATAR.buildSvg('home-lena'));
+
+      document.getElementById('profile-email').textContent = account.email;
+      document.getElementById('profile-joined').textContent = new Date(account.createdAt).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      });
+      document.getElementById('profile-account-count').textContent = String(totalAccounts);
+
+      document.getElementById('stat-level').textContent = userData.level || 'A1';
+      document.getElementById('stat-xp').textContent = `${userData.xp || 0} XP`;
+      document.getElementById('stat-streak').textContent = `${userData.streakDays || 0} Hari`;
+      document.getElementById('stat-notes').textContent = String(Array.isArray(userData.notebook) ? userData.notebook.length : 0);
+      document.getElementById('placeholder-score-val').textContent = String(userData.xp || 0);
+    }
+
+    function switchAppPage(pageName) {
+      APP_STATE.activePage = pageName;
+      document.querySelectorAll('.app-page').forEach((sec) => {
+        sec.classList.toggle('hidden', sec.id !== `page-${pageName}`);
+      });
+      document.querySelectorAll('.nav-btn').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.page === pageName);
+      });
+    }
+
+    /** Modal Kode Pemulihan (Ditampilkan SEKALI lalu dibersihkan dari DOM) */
+    let transientRecoveryCode = '';
+
+    function openRecoveryCodeModal(plainCode) {
+      transientRecoveryCode = formatRecoveryCode(plainCode);
+      document.getElementById('recovery-code-display').textContent = transientRecoveryCode;
+      document.getElementById('chk-recovery-saved').checked = false;
+      document.getElementById('btn-close-recovery').disabled = true;
+      document.getElementById('modal-recovery').classList.remove('hidden');
+    }
+
+    function closeRecoveryCodeModal() {
+      transientRecoveryCode = '';
+      document.getElementById('recovery-code-display').textContent = '----';
+      document.getElementById('modal-recovery').classList.add('hidden');
+    }
+
+    /* === SEKSI: SELF-CHECK CONSOLE (selfCheck) === */
+
+    /**
+     * Jalankan `await selfCheck()` di Console DevTools untuk memverifikasi:
+     * 1) Validasi formulir pendaftaran
+     * 2) Alur daftar -> verifikasi OTP -> keluar -> masuk kembali tanpa OTP
+     * 3) Sesi bertahan setelah simulasi refresh
+     * 4) Kode OTP polos tidak tersimpan di storage atau muncul di DOM/atribut & sandi ter-hash PBKDF2
+     */
+    window.selfCheck = async function selfCheck() {
+      const results = [];
+      const addResult = (name, pass, detail) => results.push({ Pemeriksaan: name, Status: pass ? 'LULUS' : 'GAGAL', Detail: detail });
+
+      // Cadangkan kondisi storage & UI sebelum pengujian agar selfCheck non-destruktif
+      const snapLocal = {};
+      const snapSession = {};
+      try {
+        for (let i = 0; i < window.localStorage.length; i++) {
+          const k = window.localStorage.key(i);
+          if (k && k.startsWith('lily_app_')) snapLocal[k] = window.localStorage.getItem(k);
+        }
+        for (let i = 0; i < window.sessionStorage.length; i++) {
+          const k = window.sessionStorage.key(i);
+          if (k && k.startsWith('lily_app_')) snapSession[k] = window.sessionStorage.getItem(k);
+        }
+      } catch (err) {
+        console.error('selfCheck gagal membaca storage:', err);
+        return { passed: 0, total: 0, results: [] };
+      }
+
+      try {
+        // 1. Validasi form
+        const badEmail = validateRegisterInput('Lily', 'bukan-email', 'rahasia123', 'rahasia123');
+        const shortPw = validateRegisterInput('Lily', 'tes@lily.id', '12345', '12345');
+        const mismatchPw = validateRegisterInput('Lily', 'tes@lily.id', 'rahasia123', 'beda12345');
+        const goodForm = validateRegisterInput('Lily Tester', 'selfcheck@lily.id', 'JermanHebat2026', 'JermanHebat2026');
+        addResult(
+          '1. Validasi Formulir',
+          !badEmail.valid && !shortPw.valid && !mismatchPw.valid && goodForm.valid,
+          'Menolak email salah, sandi < 8 karakter, & konfirmasi tak cocok; menerima input valid.'
+        );
+
+        // 2. OTP tidak tersimpan polos & tidak muncul di DOM
+        const testOtp = generateSecureOtp6();
+        const testSalt = generateRandomSaltHex(16);
+        const testOtpHash = await hashOtpSha256(testOtp, testSalt);
+        savePendingOtpState({
+          name: 'Lily Tester',
+          email: 'selfcheck@lily.id',
+          passwordHash: 'placeholder',
+          passwordSalt: 'placeholder',
+          otpHash: testOtpHash,
+          otpSalt: testSalt,
+          expiresAt: Date.now() + SECURITY_LIMITS.OTP_TTL_MS,
+          attempts: 0,
+          invalidated: false,
+          lastSentAt: Date.now(),
+        });
+
+        const allSessionDump = JSON.stringify(window.sessionStorage);
+        const allLocalDump = JSON.stringify(window.localStorage);
+        const domDump = document.documentElement.outerHTML;
+        const otpNotExposed =
+          !allSessionDump.includes(testOtp) &&
+          !allLocalDump.includes(testOtp) &&
+          !domDump.includes(testOtp) &&
+          timingSafeEqualHex(await hashOtpSha256(testOtp, testSalt), getPendingOtpState().otpHash);
+
+        addResult(
+          '2. Keamanan OTP (Hash SHA-256, tanpa polos)',
+          otpNotExposed,
+          'OTP diverifikasi via hash SHA-256 + salt acak dan tidak ditemukan polos di storage maupun DOM.'
+        );
+
+        // 3. Daftar -> Akun verified permanen -> Keluar -> Masuk tanpa OTP
+        const pwPlain = 'JermanHebat2026';
+        const pwSalt = generateRandomSaltHex(16);
+        const pwHash = await hashSecretPbkdf2(pwPlain, pwSalt, SECURITY_LIMITS.PBKDF2_ITERATIONS);
+        const recPlain = generateRecoveryCode12();
+        const recSalt = generateRandomSaltHex(16);
+        const recHash = await hashSecretPbkdf2(recPlain, recSalt, SECURITY_LIMITS.PBKDF2_ITERATIONS);
+
+        const testUid = generateUserId();
+        const accounts = getAllAccounts();
+        accounts[testUid] = {
+          id: testUid,
+          name: 'Lily Tester',
+          email: 'selfcheck@lily.id',
+          verified: true,
+          passwordHash: pwHash,
+          passwordSalt: pwSalt,
+          recoveryHash: recHash,
+          recoverySalt: recSalt,
+          pbkdf2Iterations: SECURITY_LIMITS.PBKDF2_ITERATIONS,
+          createdAt: new Date().toISOString(),
+        };
+        saveAllAccounts(accounts);
+        saveUserData(testUid, createDefaultUserData());
+        clearPendingOtpState();
+        saveActiveSession(testUid);
+
+        // Keluar
+        clearActiveSession();
+        const loggedOutSession = getActiveSession();
+
+        // Masuk kembali hanya dengan email + sandi (tanpa OTP)
+        const storedAcc = findAccountByEmail('selfcheck@lily.id');
+        const loginHashCheck = await hashSecretPbkdf2(pwPlain, storedAcc.passwordSalt, storedAcc.pbkdf2Iterations);
+        const loginOkWithoutOtp =
+          loggedOutSession === null &&
+          storedAcc.verified === true &&
+          timingSafeEqualHex(loginHashCheck, storedAcc.passwordHash) &&
+          getPendingOtpState() === null;
+
+        addResult(
+          '3. Daftar -> Keluar -> Masuk Tanpa OTP',
+          loginOkWithoutOtp,
+          'Akun verified:true permanen, data OTP terhapus, masuk ulang berhasil hanya dengan PBKDF2 sandi.'
+        );
+
+        // 4. Sesi bertahan setelah simulasi refresh + Sandi/Pemulihan tidak tersimpan polos
+        saveActiveSession(testUid);
+        const restoredOk = restoreSession() === true && APP_STATE.currentUserId === testUid;
+        const postLocalDump = JSON.stringify(window.localStorage);
+        const secretsNotPlain =
+          !postLocalDump.includes(pwPlain) &&
+          !postLocalDump.includes(recPlain) &&
+          storedAcc.pbkdf2Iterations >= 100000;
+
+        addResult(
+          '4. Sesi Bertahan Setelah Refresh & PBKDF2',
+          restoredOk && secretsNotPlain,
+          'restoreSession() langsung membuka Home dan kata sandi/kode pemulihan tidak tersimpan polos.'
+        );
+
+        // 5. Avatar Baddie per akun (5 avatar + Tutor Lena) & Lernmodus Dock (7 ikon)
+        const testUserData = getUserData(testUid);
+        testUserData.avatarId = 'cyber-cherry';
+        saveUserData(testUid, testUserData);
+        const reloadedAvatarId = getUserData(testUid).avatarId;
+        const dockCount = document.querySelectorAll('#lernmodus-dock .dock-item').length;
+        const avatarAndDockOk =
+          BADDIE_AVATARS.length === 5 &&
+          Boolean(TUTOR_LENA_AVATAR && TUTOR_LENA_AVATAR.buildSvg) &&
+          reloadedAvatarId === 'cyber-cherry' &&
+          dockCount === 7;
+
+        addResult(
+          '5. Avatar Per-Akun & Lernmodus Dock (7 Ikon)',
+          avatarAndDockOk,
+          '5 avatar baddie + Tutor Lena terpisah tersedia, avatar tersimpan per akun, dan 7 ikon Lernmodus Dock terpasang.'
+        );
+      } finally {
+        // Pulihkan kondisi storage asli pengguna
+        try {
+          Object.keys(window.localStorage).forEach((k) => {
+            if (k.startsWith('lily_app_')) window.localStorage.removeItem(k);
+          });
+          Object.entries(snapLocal).forEach(([k, v]) => window.localStorage.setItem(k, v));
+
+          Object.keys(window.sessionStorage).forEach((k) => {
+            if (k.startsWith('lily_app_')) window.sessionStorage.removeItem(k);
+          });
+          Object.entries(snapSession).forEach(([k, v]) => window.sessionStorage.setItem(k, v));
+        } catch (err) {
+          // Abaikan bila storage terbatas
+        }
+        APP_STATE.currentUserId = null;
+        document.getElementById('main-shell').classList.add('hidden');
+        document.getElementById('auth-shell').classList.remove('hidden');
+        restoreSession();
+      }
+
+      const passed = results.filter((r) => r.Status === 'LULUS').length;
+      console.group('✿ Lily App selfCheck()');
+      console.table(results);
+      console.log(`Ringkasan: ${passed}/${results.length} pemeriksaan LULUS.`);
+      console.groupEnd();
+      return { passed, total: results.length, results };
+    };
+
+    /* === SEKSI: INISIALISASI APLIKASI === */
+
+    function bindAllEvents() {
+      // Tab Masuk / Daftar
+      document.getElementById('tab-btn-login').addEventListener('click', () => {
+        hideAlert('login-alert');
+        switchAuthView('login');
+      });
+      document.getElementById('tab-btn-register').addEventListener('click', () => {
+        hideAlert('register-alert');
+        clearRegisterFieldErrors();
+        switchAuthView('register');
+      });
+
+      // Navigasi Lupa Kata Sandi
+      document.getElementById('btn-goto-forgot').addEventListener('click', () => {
+        hideAlert('forgot-alert');
+        switchAuthView('forgot');
+      });
+      document.getElementById('btn-forgot-back').addEventListener('click', () => {
+        hideAlert('login-alert');
+        switchAuthView('login');
+      });
+
+      // Toggle visibilitas kata sandi
+      document.querySelectorAll('[data-toggle-pw]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = document.getElementById(btn.dataset.togglePw);
+          if (!target) return;
+          const isHidden = target.type === 'password';
+          target.type = isHidden ? 'text' : 'password';
+          btn.textContent = isHidden ? '🙈' : '👁️';
+        });
+      });
+
+      // Kekuatan kata sandi real-time
+      document.getElementById('reg-password').addEventListener('input', (e) => {
+        updatePasswordMeter(e.target.value);
+      });
+
+      // Submit Form
+      document.getElementById('view-register').addEventListener('submit', handleRegisterSubmit);
+      document.getElementById('view-login').addEventListener('submit', handleLoginSubmit);
+      document.getElementById('form-otp').addEventListener('submit', handleOtpVerifySubmit);
+      document.getElementById('view-forgot').addEventListener('submit', handleForgotSubmit);
+
+      // Aksi OTP
+      bindOtpBoxes();
+      document.getElementById('btn-otp-resend').addEventListener('click', handleOtpResend);
+      document.getElementById('btn-otp-change-email').addEventListener('click', handleOtpChangeEmail);
+
+      // Keluar & Navigasi Shell Utama
+      document.getElementById('btn-logout').addEventListener('click', handleLogout);
+      document.querySelectorAll('.nav-btn').forEach((btn) => {
+        btn.addEventListener('click', () => switchAppPage(btn.dataset.page));
+      });
+      document.querySelectorAll('[data-jump-page]').forEach((btn) => {
+        btn.addEventListener('click', () => switchAppPage(btn.dataset.jumpPage));
+      });
+
+      // Modal Kode Pemulihan
+      document.getElementById('btn-copy-recovery').addEventListener('click', () => {
+        if (!transientRecoveryCode) return;
+        const ok = copyTextToClipboard(transientRecoveryCode);
+        showToast(ok ? 'Kode Pemulihan berhasil disalin! 📋' : 'Silakan blok dan salin kode secara manual.', ok ? 'success' : 'info');
+      });
+      document.getElementById('chk-recovery-saved').addEventListener('change', (e) => {
+        document.getElementById('btn-close-recovery').disabled = !e.target.checked;
+      });
+      document.getElementById('btn-close-recovery').addEventListener('click', closeRecoveryCodeModal);
+
+      // Backup & Impor JSON
+      document.getElementById('btn-export-backup').addEventListener('click', handleExportBackup);
+      document.getElementById('btn-import-backup-trigger').addEventListener('click', () => {
+        document.getElementById('input-import-backup').click();
+      });
+      document.getElementById('input-import-backup').addEventListener('change', handleImportFileSelected);
+      document.getElementById('btn-import-cancel').addEventListener('click', closeImportConfirmModal);
+      document.getElementById('btn-import-confirm').addEventListener('click', confirmImportBackup);
+
+      // Edit Profil & Pilihan Avatar
+      document.getElementById('btn-open-edit-profile-nav').addEventListener('click', openEditProfileModal);
+      document.getElementById('btn-open-edit-profile-home').addEventListener('click', openEditProfileModal);
+      document.getElementById('btn-edit-profile-cancel').addEventListener('click', closeEditProfileModal);
+      document.getElementById('form-edit-profile').addEventListener('submit', handleSaveProfile);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initEmailJsClient();
+      renderLernmodusDock();
+      bindAllEvents();
+      restoreSession();
+    });
+  </script>
+</body>
+</html>
